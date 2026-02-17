@@ -1,0 +1,345 @@
+[
+  {
+    "title": "Configuración de Milestone F03 en GitHub",
+    "description": "Tener una milestone en GitHub denominada “F03” en el repositorio de grupo (http://github.com/gti-sos/SOS2526-XX), de aqui en adelante “repositorio SOS2526-XX”, definida para el feedback con fecha correctamente establecida.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": null
+  },
+  {
+    "title": "Cierre de todas las issues de la Milestone",
+    "description": "Todas las issues de la milestone deben estar cerradas.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": null
+  },
+  {
+    "title": "Configuración de Workspace SOS2526-XX en Toggl",
+    "description": "Tener correctamente configurado en Toggl un workspace llamado SOS2526-XX con todos los miembros del equipo con permiso de administración, añadiendo también a los profesores (pafmon@gmail.com y alberto.martin95@gmail.com) y siendo XX el número de grupo tal como aparece en el team de GitHub rellenado con ceros.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": null
+  },
+  {
+    "title": "Configuración de Proyecto de GitHub",
+    "description": "Tener correctamente configurado un proyecto de Github en el repositorio SOS2526-XX.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": null
+  },
+  {
+    "title": "Configuración de Proyecto SOS2526-XX en Toggl",
+    "description": "Tener correctamente configurado en Toggl un proyecto llamado SOS2526-XX dentro del workspace (siendo XX el número de grupo tal como aparece en el team de GitHub rellenado con ceros).",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": null
+  },
+  {
+    "title": "Integración de GitHub con Slack",
+    "description": "Tener el repositorio de GitHub SOS2526-XX correctamente integrado con Slack dentro del canal sos2526-XX tal como se vio en el L02; siendo XX el número de grupo tal como aparece en el team de GitHub rellenado con ceros.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": null
+  },
+  {
+    "title": "Registro de información en README de la clase",
+    "description": "Registrar información en los repositorios de la asignatura :\n1. Añadir en el archivo “README.md” del repositorio de la clase (https://github.com/gti-sos/SOS2526) la información del grupo siguiendo el ejemplo del año pasado: https://github.com/gti-sos/SOS2324 , rellenando, los campos:\n2. Team (con enlace a los perfiles github de cada miembro),\n3. Project description (en inglés)\n4. Repository (con enlace al repositorio).",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": null
+  },
+  {
+    "title": "Registro de información en README del grupo",
+    "description": "Añadir en el archivo “README.md” del repositorio del grupo (https://github.com/gti-sos/sos2526-XX) la misma información sobre el grupo (Team, Project description y Repository).",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": null
+  },
+  {
+    "title": "Configuración de .gitignore para node_modules",
+    "description": "Asegurarse que NO se incluye la carpeta node_modules al control de versiones git del repositorio del grupo (https://github.com/gti-sos/sos2526-XX) con el .gitignore (tal como se vió en el L03).",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": null
+  },
+  {
+    "title": "Creación de archivo package.json válido",
+    "description": "Tener un archivo “package.json” válido tal como se vió en el L03",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": null
+  },
+  {
+    "title": "Instalación de Chrome",
+    "description": "Tener instalado Chrome.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Configuración de extensión de Toggl",
+    "description": "Tener correctamente instalada y configurada la extensión de Chrome de Toggl",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Cuenta de GitHub personal",
+    "description": "Tener una cuenta de GitHub.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Creación de issues de feedback",
+    "description": "Crear al menos 3 issues en el repositorio SOS2526-XX reflejando alguna de las tareas por persona de este feedback. Dentro de la issue creada deben estar correctamente establecidos tal como se vio en el L02 los siguientes campos, al menos:\n1. Título que contenga un resumen de la tarea\n2. Descripción que contenga, como mínimo, el texto exacto de la tarea tal como aparece en el backlog.\n3. El “Assignee” (responsable) a sí mismo.\n4. Milestone asignada al “F03”",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Cierre de issues personales",
+    "description": "Todas las issues deben estar en estado cerrado (“closed”) antes de la sesión de feedback.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Tracking de tiempo con Toggl",
+    "description": "Realizar tracking de tiempo con Toggl de todas las issues asignadas, de, al menos, 15 minutos en cada una de las issues.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Registro de 3 horas en Toggl",
+    "description": "Tener al menos 3 horas dedicadas registradas en Toggle dentro de las tareas de la milestone F03. Las horas deben estar asociadas a tareas (issues); para ello, se recomienda usar la extensión de chrome para toggle.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Sincronización de repositorios y README clase",
+    "description": "Registrar información en los repositorios de la asignatura:\n1. Tener correctamente configurados los repositorios de la asignatura: el repositorio de la clase (https://github.com/gti-sos/SOS2526) y el del grupo (https://github.com/gti-sos/sos2526-XX) en local. de forma que al hacer el comando en bash “git remote -v” salen correctamente enlazados con github.\n2. Tener sincronizado el repositorio de la clase (https://github.com/gti-sos/SOS2526) local de forma que al hacer ejecutar el comando “git pull” se muestre “up to date”).\n3. Tener sincronizado el repositorio del grupo (https://github.com/gti-sos/SOS2526-XX) local de forma que al hacer ejecutar el comando “git pull” se muestre “up to date”).\n4. Tener en el archivo “README.md” del repositorio de la clase (https://github.com/gti-sos/SOS2526) la información del grupo rellenando, los campos Team, Project description y Repository tal como se especificó en el F02.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Completar perfil en Piazza",
+    "description": "Haber completado el perfil (nombre, apellidos) en la herramienta Piazza.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Creación de cuenta en POSTMAN",
+    "description": "Tener creada una cuenta en la herramienta POSTMAN",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Verificación de ejemplos en ficha de trabajo",
+    "description": "Verificar que la pestaña individual de la ficha de trabajo compartida con el profesor (pafmon@gmail.com y alberto.martin95@gmail.com) (“SOS2526-XX-Propuesta”, siendo XX el número de grupo en la hoja de grupos de SOS2526) tiene:\n1. Al menos 10 ejemplos (filas) de datos.\n2. Alguno de los valores del campo (columna) de información geográfica (p.e. provincia, ciudad, coordenadas GPS, etc) se repite en múltiples filas.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Desarrollo de aplicación index-YYY.js",
+    "description": "Tener un archivo llamado “index-YYY.js” en el repositorio SOS2526-XX que contenga el código de una aplicación en nodejs (similar a lo que se vió en el L03) que realice el siguiente algoritmo (siendo YYY las siglas del alumno):\n1. Inicializa un array con los datos de ejemplo pestaña individual de la ficha de trabajo.\n2. Realice un algoritmo usando iteradores (forEach, Map, filter, …) que permita calcular la media de valores de alguna de los campos numéricos del subconjunto de filas que comparten un determinado valor en el campo de información geográfica.\n3. Al hacer “node index-YYY.js” se muestra el resultado del cálculo.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Lectura de noticias en Piazza",
+    "description": "Haber leído todas las noticias en Piazza previas a 16 horas antes del inicio de la sesión de feedback.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "pabgamgar1"
+  },
+  {
+    "title": "Instalación de Chrome",
+    "description": "Tener instalado Chrome.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Configuración de extensión de Toggl",
+    "description": "Tener correctamente instalada y configurada la extensión de Chrome de Toggl",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Cuenta de GitHub personal",
+    "description": "Tener una cuenta de GitHub.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Creación de issues de feedback",
+    "description": "Crear al menos 3 issues en el repositorio SOS2526-XX reflejando alguna de las tareas por persona de este feedback. Dentro de la issue creada deben estar correctamente establecidos tal como se vio en el L02 los siguientes campos, al menos:\n1. Título que contenga un resumen de la tarea\n2. Descripción que contenga, como mínimo, el texto exacto de la tarea tal como aparece en el backlog.\n3. El “Assignee” (responsable) a sí mismo.\n4. Milestone asignada al “F03”",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Cierre de issues personales",
+    "description": "Todas las issues deben estar en estado cerrado (“closed”) antes de la sesión de feedback.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Tracking de tiempo con Toggl",
+    "description": "Realizar tracking de tiempo con Toggl de todas las issues asignadas, de, al menos, 15 minutos en cada una de las issues.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Registro de 3 horas en Toggl",
+    "description": "Tener al menos 3 horas dedicadas registradas en Toggle dentro de las tareas de la milestone F03. Las horas deben estar asociadas a tareas (issues); para ello, se recomienda usar la extensión de chrome para toggle.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Sincronización de repositorios y README clase",
+    "description": "Registrar información en los repositorios de la asignatura:\n1. Tener correctamente configurados los repositorios de la asignatura: el repositorio de la clase (https://github.com/gti-sos/SOS2526) y el del grupo (https://github.com/gti-sos/sos2526-XX) en local. de forma que al hacer el comando en bash “git remote -v” salen correctamente enlazados con github.\n2. Tener sincronizado el repositorio de la clase (https://github.com/gti-sos/SOS2526) local de forma que al hacer ejecutar el comando “git pull” se muestre “up to date”).\n3. Tener sincronizado el repositorio del grupo (https://github.com/gti-sos/SOS2526-XX) local de forma que al hacer ejecutar el comando “git pull” se muestre “up to date”).\n4. Tener en el archivo “README.md” del repositorio de la clase (https://github.com/gti-sos/SOS2526) la información del grupo rellenando, los campos Team, Project description y Repository tal como se especificó en el F02.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Completar perfil en Piazza",
+    "description": "Haber completado el perfil (nombre, apellidos) en la herramienta Piazza.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Creación de cuenta en POSTMAN",
+    "description": "Tener creada una cuenta en la herramienta POSTMAN",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Verificación de ejemplos en ficha de trabajo",
+    "description": "Verificar que la pestaña individual de la ficha de trabajo compartida con el profesor (pafmon@gmail.com y alberto.martin95@gmail.com) (“SOS2526-XX-Propuesta”, siendo XX el número de grupo en la hoja de grupos de SOS2526) tiene:\n1. Al menos 10 ejemplos (filas) de datos.\n2. Alguno de los valores del campo (columna) de información geográfica (p.e. provincia, ciudad, coordenadas GPS, etc) se repite en múltiples filas.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Desarrollo de aplicación index-YYY.js",
+    "description": "Tener un archivo llamado “index-YYY.js” en el repositorio SOS2526-XX que contenga el código de una aplicación en nodejs (similar a lo que se vió en el L03) que realice el siguiente algoritmo (siendo YYY las siglas del alumno):\n1. Inicializa un array con los datos de ejemplo pestaña individual de la ficha de trabajo.\n2. Realice un algoritmo usando iteradores (forEach, Map, filter, …) que permita calcular la media de valores de alguna de los campos numéricos del subconjunto de filas que comparten un determinado valor en el campo de información geográfica.\n3. Al hacer “node index-YYY.js” se muestra el resultado del cálculo.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Lectura de noticias en Piazza",
+    "description": "Haber leído todas las noticias en Piazza previas a 16 horas antes del inicio de la sesión de feedback.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "felmormar"
+  },
+  {
+    "title": "Instalación de Chrome",
+    "description": "Tener instalado Chrome.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Configuración de extensión de Toggl",
+    "description": "Tener correctamente instalada y configurada la extensión de Chrome de Toggl",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Cuenta de GitHub personal",
+    "description": "Tener una cuenta de GitHub.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Creación de issues de feedback",
+    "description": "Crear al menos 3 issues en el repositorio SOS2526-XX reflejando alguna de las tareas por persona de este feedback. Dentro de la issue creada deben estar correctamente establecidos tal como se vio en el L02 los siguientes campos, al menos:\n1. Título que contenga un resumen de la tarea\n2. Descripción que contenga, como mínimo, el texto exacto de la tarea tal como aparece en el backlog.\n3. El “Assignee” (responsable) a sí mismo.\n4. Milestone asignada al “F03”",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Cierre de issues personales",
+    "description": "Todas las issues deben estar en estado cerrado (“closed”) antes de la sesión de feedback.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Tracking de tiempo con Toggl",
+    "description": "Realizar tracking de tiempo con Toggl de todas las issues asignadas, de, al menos, 15 minutos en cada una de las issues.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Registro de 3 horas en Toggl",
+    "description": "Tener al menos 3 horas dedicadas registradas en Toggle dentro de las tareas de la milestone F03. Las horas deben estar asociadas a tareas (issues); para ello, se recomienda usar la extensión de chrome para toggle.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Sincronización de repositorios y README clase",
+    "description": "Registrar información en los repositorios de la asignatura:\n1. Tener correctamente configurados los repositorios de la asignatura: el repositorio de la clase (https://github.com/gti-sos/SOS2526) y el del grupo (https://github.com/gti-sos/sos2526-XX) en local. de forma que al hacer el comando en bash “git remote -v” salen correctamente enlazados con github.\n2. Tener sincronizado el repositorio de la clase (https://github.com/gti-sos/SOS2526) local de forma que al hacer ejecutar el comando “git pull” se muestre “up to date”).\n3. Tener sincronizado el repositorio del grupo (https://github.com/gti-sos/SOS2526-XX) local de forma que al hacer ejecutar el comando “git pull” se muestre “up to date”).\n4. Tener en el archivo “README.md” del repositorio de la clase (https://github.com/gti-sos/SOS2526) la información del grupo rellenando, los campos Team, Project description y Repository tal como se especificó en el F02.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Completar perfil en Piazza",
+    "description": "Haber completado el perfil (nombre, apellidos) en la herramienta Piazza.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Creación de cuenta en POSTMAN",
+    "description": "Tener creada una cuenta en la herramienta POSTMAN",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Verificación de ejemplos en ficha de trabajo",
+    "description": "Verificar que la pestaña individual de la ficha de trabajo compartida con el profesor (pafmon@gmail.com y alberto.martin95@gmail.com) (“SOS2526-XX-Propuesta”, siendo XX el número de grupo en la hoja de grupos de SOS2526) tiene:\n1. Al menos 10 ejemplos (filas) de datos.\n2. Alguno de los valores del campo (columna) de información geográfica (p.e. provincia, ciudad, coordenadas GPS, etc) se repite en múltiples filas.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Desarrollo de aplicación index-YYY.js",
+    "description": "Tener un archivo llamado “index-YYY.js” en el repositorio SOS2526-XX que contenga el código de una aplicación en nodejs (similar a lo que se vió en el L03) que realice el siguiente algoritmo (siendo YYY las siglas del alumno):\n1. Inicializa un array con los datos de ejemplo pestaña individual de la ficha de trabajo.\n2. Realice un algoritmo usando iteradores (forEach, Map, filter, …) que permita calcular la media de valores de alguna de los campos numéricos del subconjunto de filas que comparten un determinado valor en el campo de información geográfica.\n3. Al hacer “node index-YYY.js” se muestra el resultado del cálculo.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  },
+  {
+    "title": "Lectura de noticias en Piazza",
+    "description": "Haber leído todas las noticias en Piazza previas a 16 horas antes del inicio de la sesión de feedback.",
+    "milestone": "F03",
+    "type": "Task",
+    "assignee": "marioraga29"
+  }
+]
