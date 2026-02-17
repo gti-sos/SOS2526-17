@@ -1,0 +1,24 @@
+{
+  "name": "sos2526-17",
+  "version": "0.0.0",
+  "description": "Our project is going to analyse the impact of water and renewable energy on agricultural productivity in the countries",
+  "homepage": "https://github.com/gti-sos/SOS2526-17#readme",
+  "bugs": {
+    "url": "https://github.com/gti-sos/SOS2526-17/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gti-sos/SOS2526-17.git"
+  },
+  "license": "GPL",
+  "author": "SOS2526-17",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
