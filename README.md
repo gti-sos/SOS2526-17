@@ -1,5 +1,6 @@
-# SOS2526-17
+**Milestone actual:** F03
 
+# SOS2526-17
 
 ## Team
 - Pablo Gamero García (https://github.com/pabgamgar1)
@@ -9,4 +10,5 @@
 ## Project description
 Our project is going to analyse the impact of water and renewable energy on agricultural productivity in the countries
 
-Milestone actual: F03
+## Repository
+[gti-sos/SOS2526-17](https://github.com/gti-sos/SOS2526-17)
