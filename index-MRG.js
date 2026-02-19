@@ -1,4 +1,4 @@
-let express = require('express');
+let express = require("express");
 
 const data = [
   {
@@ -80,23 +80,24 @@ const data = [
     waterProductivity: 2,
     waterStress: 28.68,
     annualFreshwater: 22.69,
-  }
-  
+  },
 ];
 
 let avrgWaterProductAFG =
-  data.filter((d) => d.country === "Afghanistan")
+  data
+    .filter((d) => d.country === "Afghanistan")
     .map((d) => d.waterProductivity)
     .reduce((a, b) => a + b) /
   data.filter((d) => d.country === "Afghanistan").length;
 
+const app = express();
 
-const app = express()
-
-app.get('/average', (req, res) => {
-  res.send(`<html><body><h3>The average water productivity for Afghanistan is ${avrgWaterProductAFG.toString()}</h3></body></html>`)
-})
+app.get("/average", (req, res) => {
+  res.send(
+    `<html><body><h3>The average water productivity for Afghanistan is ${avrgWaterProductAFG.toString()}</h3></body></html>`,
+  );
+});
 
 app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000')
-})
+  console.log("Server is running on http://localhost:3000");
+});

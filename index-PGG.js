@@ -91,7 +91,25 @@ const datos = [
   },
 ];
 
-let mediaElectricidadHydro =
-  datos.map((d) => d.hydro).reduce((a, b) => a + b) / datos.length;
+let express = require("express");
 
-console.log(mediaElectricidadHydro);
+let mediaElectricidadHydroAfghanistan =
+  datos
+    .filter((d) => d.country === "Afghanistan")
+    .map((d) => d.hydro)
+    .reduce((a, b) => a + b) /
+  datos.filter((d) => d.country === "Afghanistan").length;
+
+console.log(mediaElectricidadHydroAfghanistan);
+
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send(
+    `Media de electridad renovable hidráulica producida por Afghanistan: ${mediaElectricidadHydroAfghanistan}`,
+  );
+});
+
+app.listen(3000, () => {
+  console.log("Listening on port 3000...");
+});
