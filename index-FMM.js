@@ -89,7 +89,7 @@ const app =express();
 
 app.get("/", (req, res) => {
   res.send(
-    `Media de tierra que es apta para agricultura por indice de pulicion entre 0 y 0.5 :${mediaLandAgriculture}`,
+    `<html><body><h1>Media de tierra que es apta para agricultura por indice de pulicion entre 0 y 0.5 :${mediaLandAgriculture}</h1></body></html>`,
   );
 });
 
