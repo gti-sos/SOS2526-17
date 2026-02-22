@@ -49,6 +49,7 @@ const datos  = [
  land_agriculture: 58.1550158686353,
  types_land:0 , 
  index: 1.5,},
+
 {country : "Afghanistan",
  year:1968  ,
  country_code:"afg" ,
@@ -62,6 +63,7 @@ const datos  = [
  land_agriculture:33.0779055731558 ,
  types_land: 0, 
  index: 1,},
+ 
 {country :"bermuda ",
  year: 1986,
  country_code:"bhs" ,
