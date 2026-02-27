@@ -1,6 +1,23 @@
 let express = require("express");
+let cool = require('cool-ascii-faces');
 const app = express();
 const port = process.env.PORT || 8080;
+
+
+app.use("/", express.static("./static"));
+
+// --- RUTA ABOUT ---
+app.get("/about", (req, res) => {
+    // __dirname  dice "donde esté este archivo index.js"
+    res.sendFile(__dirname + "/static/about.html");
+});
+
+// --- RUTA COOL ---
+
+app.get('/cool', (req, res) => {
+    res.send(cool()); 
+    console.log("New cool face delivered");
+});
 
 
 // --- INICIO DE RÉPLICA (MRG) ---

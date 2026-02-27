@@ -1,5 +1,6 @@
 let express = require("express");
 
+
 const data = [
         { country: "Afghanistan", year: 2000, countryCode: "AFG", waterProductivity: 0.3, waterStress: 28.68, annualFreshwater: 22.69 },
         { country: "Angola", year: 1988, countryCode: "AGO", waterProductivity: 63.2, waterStress: 28.68, annualFreshwater: 22.69 },
