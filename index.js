@@ -67,7 +67,41 @@ app.get('/cool', (req, res) => {
 
     // B. GET a la lista de recursos
     app.get(BASE_URL_API, (req, res) => {
-        res.status(200).send(JSON.stringify(waterStats, null, 2));
+        // Si el usuario ha puesto ?country=XXX, lo guardamos, etc.
+        const { country, year, from, to } = req.query;
+
+        let filteredData = [...waterStats];
+
+        // 3. SI el usuario ha puesto ?country=XXX, filtramos la lista
+        if (country) {
+            filteredData = filteredData.filter(d => d.country.toLowerCase() === country.toLowerCase());
+        }
+        if (year) {
+            filteredData = filteredData.filter(d => d.year == year);
+        }
+        if (from) {
+            filteredData = filteredData.filter(d => d.year >= parseInt(from));
+        }
+        if (to) {
+            filteredData = filteredData.filter(d => d.year <= parseInt(to));
+        }
+
+        res.status(200).send(JSON.stringify(filteredData, null, 2));
+    });
+
+    // GET de un país con rango (Ej: /Spain?from=2000&to=2010)
+    app.get(BASE_URL_API + "/:country", (req, res) => {
+        let country = req.params.country;
+        let { from, to } = req.query;
+
+        // Filtramos por país
+        let filteredData = waterStats.filter(d => d.country.toLowerCase() === country.toLowerCase());
+
+        // Filtramos por rango si existe
+        if (from) filteredData = filteredData.filter(d => d.year >= parseInt(from));
+        if (to) filteredData = filteredData.filter(d => d.year <= parseInt(to));
+
+        res.status(200).send(JSON.stringify(filteredData, null, 2)); 
     });
 
     // POST: Crear nuevo recurso
