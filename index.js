@@ -1,10 +1,13 @@
 let express = require("express");
+let bodyParser = require("body-parser");
 let cool = require('cool-ascii-faces');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use("/", express.static("./static"));
+app.use(bodyParser.json());
 
 // --- RUTA ABOUT ---
 app.get("/about", (req, res) => {
@@ -75,12 +78,12 @@ app.get('/cool', (req, res) => {
             return res.sendStatus(400); // Bad Request
         }
         // Comprobar si ya existe un recurso con el mismo país y año
-        let exists = waterStats.some(d => d.country === newData.country && d.year === newData.year);
+        let exists = waterStats.some(d => d.country === newData.country && d.year == newData.year);
         if (exists) {
             res.sendStatus(409); // Conflict
         } else {
             waterStats.push(newData);
-            res.sendStatus(201); // Created
+            res.status(201).send("CREATED"); // Created
         }
     });
 
@@ -89,7 +92,6 @@ app.get('/cool', (req, res) => {
         res.sendStatus(405); // Method Not Allowed
     });
 
-    // DELETE: Borrar toda la lista
     // DELETE de toda la lista
     app.delete(BASE_URL_API, (req, res) => {
         // Si el usuario no envía .../api/v1/water-productivities?admin=true
