@@ -16,6 +16,6 @@ Our project is going to analyse the impact of water and renewable energy on agri
 
 [gti-sos/SOS2526-17](https://github.com/gti-sos/SOS2526-17)
 
-## Despliegue
+## Deployment
 
 - Render: [https://sos2526-17.onrender.com](https://sos2526-17.onrender.com)
