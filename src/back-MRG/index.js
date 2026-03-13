@@ -1,8 +1,10 @@
+import dataStore from "nedb";
 import dataMRG from "../../datos-mrg.json" with { type: "json" };
+
 let BASE_URL_API = "/api/v1/water-productivities";
+let db = new dataStore();
 
 function loadBackendMRG(app) {
-
     // Ruta dinámica /samples/MRG
     app.get("/samples/MRG", (req, res) => {
         let avrgWaterProductAFG =
@@ -16,42 +18,50 @@ function loadBackendMRG(app) {
         );
     });
 
-    let waterStats = [];
+    // API RESTful
 
     // Cargar datos iniciales
     app.get(BASE_URL_API + "/loadInitialData", (req, res) => {
-        if (waterStats.length === 0) {
-            waterStats = [...dataMRG];
-            res.status(200).send("Datos iniciales cargados con éxito.");
-        } else {
-            res.status(400).send("Bad Request: Data already exists");
-        }
+        // Buscamos si ya hay contenido
+        db.find({}, (err, stats) => {
+            if (stats.length === 0) {
+                // Si está vacío, insertamos el array de datos iniciales
+                db.insert(dataMRG);
+                res.status(201).send("Datos iniciales cargados con éxito.");
+            } else {
+                // Si ya tiene algo, lanzamos el error 400
+                res.status(400).send("Bad Request: Data already exists");
+            }
+        });
     });
 
     // GET a la lista de recursos
     app.get(BASE_URL_API, (req, res) => {
-        // Si el usuario ha puesto ?country=XXX, lo guardamos, etc.
         const { country, year, from, to } = req.query;
 
-        let filteredData = [...waterStats];
+        // 1. Obtenemos TODOS los datos de la base de datos
+        db.find({}, (err, stats) => {
+            let filteredData = stats;
 
-        // 3. SI el usuario ha puesto ?country=XXX, filtramos la lista
-        if (country) {
-            filteredData = filteredData.filter(
-                (d) => d.country.toLowerCase() === country.toLowerCase(),
-            );
-        }
-        if (year) {
-            filteredData = filteredData.filter((d) => d.year == year);
-        }
-        if (from) {
-            filteredData = filteredData.filter((d) => d.year >= parseInt(from));
-        }
-        if (to) {
-            filteredData = filteredData.filter((d) => d.year <= parseInt(to));
-        }
+            // 2. Aplicamos los filtros de JavaScript sobre el resultado
+            if (country) {
+                filteredData = filteredData.filter(
+                    (d) => d.country.toLowerCase() === country.toLowerCase()
+                );
+            }
+            if (year) {
+                filteredData = filteredData.filter((d) => d.year == year);
+            }
+            if (from) {
+                filteredData = filteredData.filter((d) => d.year >= parseInt(from));
+            }
+            if (to) {
+                filteredData = filteredData.filter((d) => d.year <= parseInt(to));
+            }
 
-        res.status(200).send(JSON.stringify(filteredData, null, 2));
+            // 3. Enviamos el resultado (NeDB ya devuelve objetos, res.json es ideal aquí)
+            res.status(200).json(filteredData);
+        });
     });
 
     // GET de un país con rango (Ej: /Spain?from=2000&to=2010)
@@ -59,36 +69,31 @@ function loadBackendMRG(app) {
         let country = req.params.country;
         let { from, to } = req.query;
 
-        // Filtramos por país
-        let filteredData = waterStats.filter(
-            (d) => d.country.toLowerCase() === country.toLowerCase(),
-        );
+        // Buscamos en la DB los que coincidan con el país
+        db.find({ country: country }, (err, stats) => {
+            let filteredData = stats;
 
-        // Filtramos por rango si existe
-        if (from)
-            filteredData = filteredData.filter((d) => d.year >= parseInt(from));
-        if (to) filteredData = filteredData.filter((d) => d.year <= parseInt(to));
+            if (from) filteredData = filteredData.filter((d) => d.year >= parseInt(from));
+            if (to) filteredData = filteredData.filter((d) => d.year <= parseInt(to));
 
-        res.status(200).send(JSON.stringify(filteredData, null, 2));
+            res.status(200).json(filteredData);
+        });
     });
 
     // POST: Crear nuevo recurso
     app.post(BASE_URL_API, (req, res) => {
         let newData = req.body;
-        // Comprobar campos obligatorios
-        if (!newData.country || !newData.year) {
-            return res.sendStatus(400); // Bad Request
-        }
-        // Comprobar si ya existe un recurso con el mismo país y año
-        let exists = waterStats.some(
-            (d) => d.country === newData.country && d.year == newData.year,
-        );
-        if (exists) {
-            res.sendStatus(409); // Conflict
-        } else {
-            waterStats.push(newData);
-            res.status(201).send("CREATED"); // Created
-        }
+        if (!newData.country || !newData.year) return res.sendStatus(400);
+
+        // Comprobamos si ya existe antes de insertar
+        db.find({ country: newData.country, year: newData.year }, (err, stats) => {
+            if (stats.length > 0) {
+                res.sendStatus(409); // Conflict
+            } else {
+                db.insert(newData);
+                res.status(201).send("CREATED");
+            }
+        });
     });
 
     // PUT sobre la lista (NO PERMITIDO)
@@ -98,13 +103,12 @@ function loadBackendMRG(app) {
 
     // DELETE de toda la lista
     app.delete(BASE_URL_API, (req, res) => {
-        // Si el usuario no envía .../api/v1/water-productivities?admin=true
-        if (req.query.admin !== "true") {
-            return res.sendStatus(401); // Unauthorized
-        }
+        if (req.query.admin !== "true") return res.sendStatus(401);
 
-        waterStats = [];
-        res.sendStatus(200);
+        // En NeDB, {} significa "todos" y multi: true permite borrar más de uno
+        db.remove({}, { multi: true }, (err, numRemoved) => {
+            res.sendStatus(200);
+        });
     });
 
     // MÉTODOS SOBRE UN RECURSO CONCRETO
@@ -112,14 +116,15 @@ function loadBackendMRG(app) {
     // GET (Ej: /api/v1/water-productivities/Spain/2000)
     app.get(BASE_URL_API + "/:country/:year", (req, res) => {
         let { country, year } = req.params;
-        let resource = waterStats.find(
-            (d) => d.country === country && d.year == year,
-        );
-        if (resource) {
-            res.status(200).send(JSON.stringify(resource, null, 2));
-        } else {
-            res.sendStatus(404); // Not Found
-        }
+        db.find({ country: country, year: parseInt(year) }, (err, stats) => {
+            if (stats.length > 0) {
+                const resource = stats[0];
+                delete resource._id; // Limpieza opcional
+                res.status(200).json(resource);
+            } else {
+                res.sendStatus(404);
+            }
+        });
     });
 
     // Post (NO PERMITIDO)
@@ -130,38 +135,30 @@ function loadBackendMRG(app) {
         let { country, year } = req.params;
         let updatedData = req.body;
 
-        // ERROR 400: El país/año de la URL no coincide con el del cuerpo JSON
         if (country !== updatedData.country || year != updatedData.year) {
             return res.sendStatus(400);
         }
 
-        // Posición en el array
-        let index = waterStats.findIndex(
-            (d) => d.country === country && d.year == year,
-        );
-
-        if (index !== -1) {
-            // Si existe, lo sustituimos por los nuevos datos
-            waterStats[index] = updatedData;
-            res.sendStatus(200);
-        } else {
-            // ERROR 404: No existe ese país/año para actualizar
-            res.sendStatus(404);
-        }
+        // Actualizamos donde coincida país y año
+        db.update({ country: country, year: parseInt(year) }, updatedData, {}, (err, numReplaced) => {
+            if (numReplaced === 0) {
+                res.sendStatus(404);
+            } else {
+                res.sendStatus(200);
+            }
+        });
     });
 
     // DELETE (Ej: /api/v1/water-productivities/Spain/2000)
     app.delete(BASE_URL_API + "/:country/:year", (req, res) => {
         let { country, year } = req.params;
-        let index = waterStats.findIndex(
-            (d) => d.country === country && d.year == year,
-        );
-        if (index !== -1) {
-            waterStats.splice(index, 1); // Elimina 1 elemento en la posición index
-            res.sendStatus(200);
-        } else {
-            res.sendStatus(404); // Not Found
-        }
+        db.remove({ country: country, year: parseInt(year) }, {}, (err, numRemoved) => {
+            if (numRemoved === 0) {
+                res.sendStatus(404);
+            } else {
+                res.sendStatus(200);
+            }
+        });
     });
 }
 
