@@ -22,28 +22,24 @@ function loadBackendMRG(app) {
 
     // Cargar datos iniciales
     app.get(BASE_URL_API + "/loadInitialData", (req, res) => {
-        // Buscamos si ya hay contenido
         db.find({}, (err, stats) => {
             if (stats.length === 0) {
-                // Si está vacío, insertamos el array de datos iniciales
                 db.insert(dataMRG);
                 res.status(201).send("Datos iniciales cargados con éxito.");
             } else {
-                // Si ya tiene algo, lanzamos el error 400
                 res.status(400).send("Bad Request: Data already exists");
             }
         });
     });
 
-    // GET a la lista de recursos
+    // GET a la lista de recursos (con filtros y limpieza de _id)
     app.get(BASE_URL_API, (req, res) => {
         const { country, year, from, to } = req.query;
 
-        // 1. Obtenemos TODOS los datos de la base de datos
         db.find({}, (err, stats) => {
             let filteredData = stats;
 
-            // 2. Aplicamos los filtros de JavaScript sobre el resultado
+            // 1. Filtramos
             if (country) {
                 filteredData = filteredData.filter(
                     (d) => d.country.toLowerCase() === country.toLowerCase()
@@ -59,7 +55,12 @@ function loadBackendMRG(app) {
                 filteredData = filteredData.filter((d) => d.year <= parseInt(to));
             }
 
-            // 3. Enviamos el resultado (NeDB ya devuelve objetos, res.json es ideal aquí)
+            // 2. Limpiamos el campo _id de cada objeto (Estilo profesor)
+            filteredData = filteredData.map((d) => {
+                delete d._id;
+                return d;
+            });
+
             res.status(200).json(filteredData);
         });
     });
@@ -69,12 +70,17 @@ function loadBackendMRG(app) {
         let country = req.params.country;
         let { from, to } = req.query;
 
-        // Buscamos en la DB los que coincidan con el país
         db.find({ country: country }, (err, stats) => {
             let filteredData = stats;
 
             if (from) filteredData = filteredData.filter((d) => d.year >= parseInt(from));
             if (to) filteredData = filteredData.filter((d) => d.year <= parseInt(to));
+
+            // Limpiamos el campo _id
+            filteredData = filteredData.map((d) => {
+                delete d._id;
+                return d;
+            });
 
             res.status(200).json(filteredData);
         });
@@ -85,8 +91,7 @@ function loadBackendMRG(app) {
         let newData = req.body;
         if (!newData.country || !newData.year) return res.sendStatus(400);
 
-        // Comprobamos si ya existe antes de insertar
-        db.find({ country: newData.country, year: newData.year }, (err, stats) => {
+        db.find({ country: newData.country, year: parseInt(newData.year) }, (err, stats) => {
             if (stats.length > 0) {
                 res.sendStatus(409); // Conflict
             } else {
@@ -98,28 +103,25 @@ function loadBackendMRG(app) {
 
     // PUT sobre la lista (NO PERMITIDO)
     app.put(BASE_URL_API, (req, res) => {
-        res.sendStatus(405); // Method Not Allowed
+        res.sendStatus(405);
     });
 
     // DELETE de toda la lista
     app.delete(BASE_URL_API, (req, res) => {
         if (req.query.admin !== "true") return res.sendStatus(401);
 
-        // En NeDB, {} significa "todos" y multi: true permite borrar más de uno
         db.remove({}, { multi: true }, (err, numRemoved) => {
             res.sendStatus(200);
         });
     });
 
-    // MÉTODOS SOBRE UN RECURSO CONCRETO
-
-    // GET (Ej: /api/v1/water-productivities/Spain/2000)
+    // GET Recurso específico (Ej: /api/v1/water-productivities/Spain/2000)
     app.get(BASE_URL_API + "/:country/:year", (req, res) => {
         let { country, year } = req.params;
         db.find({ country: country, year: parseInt(year) }, (err, stats) => {
             if (stats.length > 0) {
                 const resource = stats[0];
-                delete resource._id; // Limpieza opcional
+                delete resource._id; // Limpiamos el recurso único
                 res.status(200).json(resource);
             } else {
                 res.sendStatus(404);
@@ -127,10 +129,10 @@ function loadBackendMRG(app) {
         });
     });
 
-    // Post (NO PERMITIDO)
+    // POST Recurso específico (NO PERMITIDO)
     app.post(BASE_URL_API + "/:country/:year", (req, res) => res.sendStatus(405));
 
-    // PUT (Ej: /api/v1/water-productivities/Spain/2000)
+    // PUT Recurso específico
     app.put(BASE_URL_API + "/:country/:year", (req, res) => {
         let { country, year } = req.params;
         let updatedData = req.body;
@@ -139,7 +141,6 @@ function loadBackendMRG(app) {
             return res.sendStatus(400);
         }
 
-        // Actualizamos donde coincida país y año
         db.update({ country: country, year: parseInt(year) }, updatedData, {}, (err, numReplaced) => {
             if (numReplaced === 0) {
                 res.sendStatus(404);
@@ -149,7 +150,7 @@ function loadBackendMRG(app) {
         });
     });
 
-    // DELETE (Ej: /api/v1/water-productivities/Spain/2000)
+    // DELETE Recurso específico
     app.delete(BASE_URL_API + "/:country/:year", (req, res) => {
         let { country, year } = req.params;
         db.remove({ country: country, year: parseInt(year) }, {}, (err, numRemoved) => {
