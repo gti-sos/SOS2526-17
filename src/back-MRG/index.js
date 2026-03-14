@@ -32,43 +32,43 @@ function loadBackendMRG(app) {
         });
     });
 
-    // GET a la lista de recursos (con filtros y limpieza de _id)
+    // GET a la lista de recursos (con filtros, limpieza de _id y PAGINACIÓN)
     app.get(BASE_URL_API, (req, res) => {
-        const { country, year, from, to } = req.query;
+        const { country, year, countryCode, waterProductivity, waterStress, annualFreshwater, from, to } = req.query;
+
+        // Parámetros de paginación
+        let limit = parseInt(req.query.limit);
+        let offset = parseInt(req.query.offset);
 
         db.find({}, (err, stats) => {
             let filteredData = stats;
 
-            // 1. Filtramos
-            if (country) {
-                filteredData = filteredData.filter(
-                    (d) => d.country.toLowerCase() === country.toLowerCase()
-                );
-            }
-            if (year) {
-                filteredData = filteredData.filter((d) => d.year == year);
-            }
-            if (from) {
-                filteredData = filteredData.filter((d) => d.year >= parseInt(from));
-            }
-            if (to) {
-                filteredData = filteredData.filter((d) => d.year <= parseInt(to));
+            // Filtros de búsqueda
+            if (country) filteredData = filteredData.filter(d => d.country.toLowerCase() === country.toLowerCase());
+            if (countryCode) filteredData = filteredData.filter(d => d.countryCode.toLowerCase() === countryCode.toLowerCase());
+            if (year) filteredData = filteredData.filter(d => d.year == year);
+            if (waterProductivity) filteredData = filteredData.filter(d => d.waterProductivity == waterProductivity);
+            if (waterStress) filteredData = filteredData.filter(d => d.waterStress == waterStress);
+            if (annualFreshwater) filteredData = filteredData.filter(d => d.annualFreshwater == annualFreshwater);
+            if (from) filteredData = filteredData.filter(d => d.year >= parseInt(from));
+            if (to) filteredData = filteredData.filter(d => d.year <= parseInt(to));
+
+            // PAGINACIÓN sobre los datos ya filtrados
+            if (!isNaN(limit) && !isNaN(offset)) {
+                filteredData = filteredData.slice(offset, offset + limit);
             }
 
-            // 2. Limpiamos el campo _id de cada objeto (Estilo profesor)
-            filteredData = filteredData.map((d) => {
-                delete d._id;
-                return d;
-            });
-
-            res.status(200).json(filteredData);
+            // Limpiamos _id y enviamos
+            res.status(200).json(filteredData.map(d => { delete d._id; return d; }));
         });
     });
 
-    // GET de un país con rango (Ej: /Spain?from=2000&to=2010)
+    // GET de un país con rango (Ej: /Spain?from=2000&to=2010) y PaGINACIÓN
     app.get(BASE_URL_API + "/:country", (req, res) => {
         let country = req.params.country;
         let { from, to } = req.query;
+        let limit = parseInt(req.query.limit);
+        let offset = parseInt(req.query.offset);
 
         db.find({ country: country }, (err, stats) => {
             let filteredData = stats;
@@ -76,13 +76,12 @@ function loadBackendMRG(app) {
             if (from) filteredData = filteredData.filter((d) => d.year >= parseInt(from));
             if (to) filteredData = filteredData.filter((d) => d.year <= parseInt(to));
 
-            // Limpiamos el campo _id
-            filteredData = filteredData.map((d) => {
-                delete d._id;
-                return d;
-            });
+            // Aplicamos paginación si se proporcionan los parámetros
+            if (!isNaN(limit) && !isNaN(offset)) {
+                filteredData = filteredData.slice(offset, offset + limit);
+            }
 
-            res.status(200).json(filteredData);
+            res.status(200).json(filteredData.map(d => { delete d._id; return d; }));
         });
     });
 
@@ -108,7 +107,7 @@ function loadBackendMRG(app) {
 
     // DELETE de toda la lista
     app.delete(BASE_URL_API, (req, res) => {
-        if (req.query.admin !== "true") return res.sendStatus(401);
+        //if (req.query.admin !== "true") return res.sendStatus(401);
 
         db.remove({}, { multi: true }, (err, numRemoved) => {
             res.sendStatus(200);
