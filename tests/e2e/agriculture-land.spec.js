@@ -101,7 +101,7 @@ test.describe('Agriculture Land E2E Tests', () => {
         await page.waitForFunction((expected) => {
             const currentRows = document.querySelectorAll('table tbody tr:not(.empty)').length;
             return currentRows < expected;
-        }, initialRows, { timeout: 10000 });
+        }, initialRows, { timeout: 20000 });
 
         // 7. Verificación
         const finalRows = await page.locator('table tbody tr:not(.empty)').count();

@@ -2,8 +2,8 @@
     import { onMount, onDestroy } from 'svelte';
 
     let chartRef;
-    let loading = true;
-    let error = '';
+    let loading = $state(true);
+    let error = $state('');
 
     onMount(async () => {
         try {
