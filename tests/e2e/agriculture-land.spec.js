@@ -4,7 +4,9 @@ import { test, expect } from '@playwright/test';
 const URL_BASE = 'http://localhost:3000/agriculture-land'; 
 test.describe('Agriculture Land E2E Tests', () => {
 
-    test.beforeEach(async ({ page }) => {
+    test.beforeEach(async ({ page, request }) => {
+        const resetResponse = await request.get('http://localhost:3000/api/v1/agriculture-land/loadInitialData');
+        expect(resetResponse.status()).toBe(201);
         await page.goto(URL_BASE, { waitUntil: 'networkidle' });
     });
 
@@ -60,12 +62,13 @@ test.describe('Agriculture Land E2E Tests', () => {
         await page.waitForURL(/\/agriculture-land\/.+\/\d+/, { timeout: 10000 });
         
         
-        const inputEditable = page.locator('input:not([readonly])').first();
-        
-        await expect(inputEditable).not.toHaveValue('', { timeout: 10000 });
-        // ------------------------------------------------
-        
-        // 4. 
+        // Esperamos a que el formulario haya cargado datos del recurso (campo readonly)
+        const countryReadonlyInput = page.locator('input[readonly]').first();
+        await expect(countryReadonlyInput).not.toHaveValue('', { timeout: 10000 });
+
+        // 4.
+        const inputEditable = page.locator('input[placeholder="Ej: ESP"]');
+        await expect(inputEditable).toBeVisible({ timeout: 10000 });
         await inputEditable.click();
         await inputEditable.fill('VALOR-EDITADO-OK'); 
         
@@ -79,33 +82,35 @@ test.describe('Agriculture Land E2E Tests', () => {
         await page.waitForURL(/\/agriculture-land$/, { timeout: 10000 });
         await expect(page.locator('table')).toContainText('VALOR-EDITADO-OK');
     });
-  test('should delete a specific resource', async ({ page }) => {
-        // 1. Aseguramos 
-        await page.click('.btn-load');
-        // Esperamos 
-        await page.waitForSelector('table tbody tr:not(.empty)', { timeout: 10000 });
-        
-        // 2. Contamos 
-        const initialRows = await page.locator('table tbody tr:not(.empty)').count();
-        
-        // 3. IMPORTANTE
-        page.on('dialog', dialog => dialog.accept());
-        
-        // 4. Hacemos
-        await page.click('.btn-del >> nth=0');
-        
-        // 5. Esperamos
-        await expect(page.locator('.alert.success')).toBeVisible({ timeout: 10000 });
-        
-        // 6. 
-        await page.waitForFunction((expected) => {
-            const currentRows = document.querySelectorAll('table tbody tr:not(.empty)').length;
-            return currentRows < expected;
-        }, initialRows, { timeout: 20000 });
+  test('should delete a specific resource', async ({ page, request }) => {
+        const toDelete = {
+            country: 'e2e-delete-target',
+            year: 2099,
+            country_code: 'DEL',
+            land_agriculture: 44.4,
+            types_land: 1,
+            index: 9
+        };
 
-        // 7. Verificación
-        const finalRows = await page.locator('table tbody tr:not(.empty)').count();
-        expect(finalRows).toBeLessThan(initialRows);
+        const createRes = await request.post('http://localhost:3000/api/v1/agriculture-land', { data: toDelete });
+        expect(createRes.status()).toBe(201);
+
+        await page.reload({ waitUntil: 'networkidle' });
+
+        const searchInput = page.locator('input[placeholder="País (ej: Spain)"]');
+        await searchInput.fill(toDelete.country);
+        await page.click('.btn-search');
+
+        const targetRow = page.locator('table tbody tr', { hasText: toDelete.country }).first();
+        await expect(targetRow).toBeVisible({ timeout: 10000 });
+
+        page.once('dialog', dialog => dialog.accept());
+        await targetRow.locator('.btn-del').click();
+        await expect(page.locator('table tbody tr', { hasText: toDelete.country })).toHaveCount(0, { timeout: 10000 });
+
+        await searchInput.fill(toDelete.country);
+        await page.click('.btn-search');
+        await expect(page.locator('table tbody tr', { hasText: toDelete.country })).toHaveCount(0, { timeout: 10000 });
     });
 
     test('should list all resources correctly after loading', async ({ page }) => {
