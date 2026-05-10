@@ -1,291 +1,182 @@
 <script>
-	import { onMount } from 'svelte';
-
-	const integrationConfig = {
-		id: 'renewable-self',
-		title: 'Mi API: renewable-energy-consumptions',
-		type: 'SOS propia',
-		fetchUrl: '/api/v1/renewable-energy-consumptions?limit=5',
-		apiUrl: '/api/v1/renewable-energy-consumptions',
-		columns: ['country', 'year', 'wind', 'solar', 'hydro']
-	};
-
-	let card = $state({
-		id: integrationConfig.id,
-		title: integrationConfig.title,
-		type: integrationConfig.type,
-		apiUrl: integrationConfig.apiUrl,
-		columns: integrationConfig.columns,
-		loading: true,
-		error: '',
-		rows: [],
-		autoLoaded: false,
-		fetchedAt: '-'
-	});
-
-	function toArrayPayload(payload) {
-		if (Array.isArray(payload)) return payload;
-		if (payload && Array.isArray(payload.data)) return payload.data;
-		return [];
-	}
-
-	function normalizeRows(payload) {
-		return toArrayPayload(payload).slice(0, 5);
-	}
-
-	function withQuery(url, key, value) {
-		const separator = url.includes('?') ? '&' : '?';
-		return `${url}${separator}${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-	}
-
-	async function fetchJson(url) {
-		const res = await fetch(url);
-		if (!res.ok) {
-			throw new Error(`HTTP ${res.status}`);
+	// @ts-nocheck
+	function goBack() {
+		if (window.history.length > 1) {
+			window.history.back();
+			return;
 		}
-		return res.json();
+
+		window.location.href = '/integrations';
 	}
-
-	async function loadIntegration() {
-		card = {
-			...card,
-			loading: true,
-			error: '',
-			autoLoaded: false
-		};
-
-		try {
-			const payload = await fetchJson(withQuery(integrationConfig.fetchUrl, 't', Date.now()));
-			const rows = normalizeRows(payload);
-
-			card = {
-				...card,
-				loading: false,
-				error: '',
-				rows,
-				autoLoaded: false,
-				fetchedAt: new Date().toLocaleTimeString('es-ES')
-			};
-		} catch (error) {
-			card = {
-				...card,
-				loading: false,
-				error: String(error?.message || error),
-				rows: []
-			};
-		}
-	}
-
-	onMount(loadIntegration);
 </script>
 
-<main>
-	<header>
-		<h1>Integrations - PGG</h1>
-		<p>Vista individual de integraciones en la ruta <code>/integrations/pgg</code>.</p>
-		<div class="actions">
-			<button onclick={loadIntegration}>Recargar integracion</button>
-			<a href="/">Volver al inicio</a>
-		</div>
+<main class="page">
+	<header class="header">
+		<h1>Integraciones de Pablo Gamero García</h1>
+		<p>
+			Este índice reúne los usos individuales del recurso
+			<code>renewable-energy-consumptions</code>.
+		</p>
+		<button type="button" class="back-link" onclick={goBack}>Atrás</button>
 	</header>
 
-	<section>
-		<article class="card">
-			<div class="card-head">
-				<h2>{card.title}</h2>
-				<p class="type">{card.type}</p>
-			</div>
-
-			<p class="meta">
-				API: <a href={card.apiUrl} target="_blank" rel="noreferrer">{card.apiUrl}</a>
-			</p>
-			<p class="meta">Ultima carga: {card.fetchedAt}</p>
-
-			{#if card.loading}
-				<p class="status">Cargando datos...</p>
-			{:else if card.error}
-				<p class="error">Error: {card.error}</p>
-			{:else if card.rows.length === 0}
-				<p class="status">Sin datos en este momento.</p>
-			{:else}
-				<div class="table-wrap">
-					<table>
-						<thead>
-							<tr>
-								{#each card.columns as column}
-									<th>{column}</th>
-								{/each}
-							</tr>
-						</thead>
-						<tbody>
-							{#each card.rows as row, idx (`${card.id}-${idx}`)}
-								<tr>
-									{#each card.columns as column}
-										<td>{row[column] ?? '-'}</td>
-									{/each}
-								</tr>
-							{/each}
-						</tbody>
-					</table>
-				</div>
-			{/if}
-		</article>
+	<section class="section">
+		<h2>Subintegraciones disponibles</h2>
+		<ul class="integration-list">
+			<li>
+				<a class="integration-link" href="/integrations/renewable-energy-consumptions/cholera-stats">
+					<span class="integration-title">Cholera Stats</span>
+					<span class="integration-meta">SOS externo directo</span>
+					<span class="integration-description">Ranking textual de países con más casos reportados de cólera.</span>
+				</a>
+			</li>
+			<li>
+				<a class="integration-link" href="/integrations/renewable-energy-consumptions/drinking-water-services">
+					<span class="integration-title">Drinking Water Services</span>
+					<span class="integration-meta">SOS externo con proxy propio</span>
+					<span class="integration-description">Comparativa visual de cobertura urbana con datos obtenidos a través del proxy propio.</span>
+				</a>
+			</li>
+			<li>
+				<a class="integration-link" href="/integrations/renewable-energy-consumptions/pandemics">
+					<span class="integration-title">Pandemics</span>
+					<span class="integration-meta">SOS externo directo</span>
+					<span class="integration-description">Comparativa agregada del impacto total de varias enfermedades por país en Highcharts.</span>
+				</a>
+			</li>
+			<li>
+				<a class="integration-link" href="/integrations/renewable-energy-consumptions/wool-stats">
+					<span class="integration-title">Wool Stats</span>
+					<span class="integration-meta">SOS externo directo</span>
+					<span class="integration-description">Evolución comparada de cantidad y valor comercial en una visualización de áreas.</span>
+				</a>
+			</li>
+			<li>
+				<a class="integration-link" href="/integrations/renewable-energy-consumptions/global-ev-charging-infrastructures">
+					<span class="integration-title">Global EV Charging Infrastructures</span>
+					<span class="integration-meta">SOS externo directo</span>
+					<span class="integration-description">Relación entre puntos de carga y potencia total en un gráfico de dispersión.</span>
+				</a>
+			</li>
+			<li>
+				<a class="integration-link" href="/integrations/renewable-energy-consumptions/restcountries">
+					<span class="integration-title">REST Countries</span>
+					<span class="integration-meta">API no SOS directa</span>
+					<span class="integration-description">Reparto de población de los países europeos más poblados en un gráfico circular.</span>
+				</a>
+			</li>
+			<li>
+				<a class="integration-link" href="/integrations/renewable-energy-consumptions/open-meteo">
+					<span class="integration-title">Open-Meteo</span>
+					<span class="integration-meta">API no SOS directa</span>
+					<span class="integration-description">Ficha textual con el tiempo actual en Madrid.</span>
+				</a>
+			</li>
+			<li>
+				<a class="integration-link" href="/integrations/renewable-energy-consumptions/exchange-rates">
+					<span class="integration-title">Exchange Rates</span>
+					<span class="integration-meta">API no SOS directa</span>
+					<span class="integration-description">Evolución visual de una selección de tipos de cambio respecto al euro.</span>
+				</a>
+			</li>
+		</ul>
 	</section>
 </main>
 
 <style>
 	:global(body) {
 		margin: 0;
-		background: #f4f6f8;
-		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		color: #1f2937;
+		background: #f3f5f0;
+		color: #1f2a1e;
+		font-family: Georgia, 'Times New Roman', serif;
 	}
 
-	main {
-		max-width: 900px;
+	.page {
+		max-width: 1040px;
 		margin: 0 auto;
-		padding: 30px 18px 60px;
+		padding: 32px 20px 64px;
 	}
 
-	header {
-		background: white;
-		padding: 20px;
-		border-radius: 10px;
-		border: 1px solid #e5e7eb;
-		margin-bottom: 18px;
+	.header,
+	.section {
+		background: #fbfcf8;
+		border: 1px solid #d5ddd1;
+		padding: 28px;
 	}
 
-	h1 {
-		margin: 0;
-		font-size: 1.8rem;
+	.section {
+		margin-top: 18px;
 	}
 
-	header p {
-		margin: 8px 0 0;
-		color: #4b5563;
-	}
-
-	.actions {
-		display: flex;
-		gap: 10px;
-		align-items: center;
-		margin-top: 14px;
-	}
-
-	button {
-		background: #0f766e;
-		color: white;
-		border: none;
-		border-radius: 8px;
-		padding: 9px 14px;
-		cursor: pointer;
-		font-size: 0.9rem;
-	}
-
-	button:hover {
-		background: #0d645d;
-	}
-
-	.actions a {
-		color: #0f766e;
-		font-weight: 600;
-		text-decoration: none;
-	}
-
-	.actions a:hover {
-		text-decoration: underline;
-	}
-
-	.card {
-		background: white;
-		border: 1px solid #e5e7eb;
-		border-radius: 10px;
-		padding: 14px;
-	}
-
-	.card-head {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		gap: 10px;
-	}
-
+	h1,
 	h2 {
+		margin: 0 0 14px;
+		font-size: 1.95rem;
+		font-weight: 600;
+	}
+
+	p {
 		margin: 0;
-		font-size: 1.02rem;
+		line-height: 1.6;
 	}
 
-	.type {
+	code {
+		background: #e5eadf;
+		padding: 0.1rem 0.35rem;
+	}
+
+	.back-link {
+		margin-top: 18px;
+		padding: 9px 14px;
+		border: 1px solid #8ca088;
+		background: #fbfcf8;
+		color: #1f2a1e;
+		font: inherit;
+		cursor: pointer;
+	}
+
+	.integration-list {
+		list-style: none;
 		margin: 0;
-		font-size: 0.8rem;
-		background: #f3f4f6;
-		color: #374151;
-		padding: 4px 8px;
-		border-radius: 999px;
+		padding: 0;
 	}
 
-	.meta {
-		font-size: 0.82rem;
-		color: #4b5563;
-		margin: 8px 0;
-		word-break: break-word;
+	.integration-list li + li {
+		margin-top: 12px;
 	}
 
-	.meta a {
-		color: #2563eb;
+	.integration-link {
+		display: block;
+		padding: 16px 18px;
+		background: #ffffff;
+		border: 1px solid #d7dfd2;
+		text-decoration: none;
+		color: inherit;
 	}
 
-	.status {
-		font-size: 0.9rem;
-		color: #374151;
+	.integration-link:hover {
+		background: #f0f4eb;
 	}
 
-	.error {
-		font-size: 0.9rem;
-		color: #991b1b;
-		background: #fef2f2;
-		border: 1px solid #fecaca;
-		border-radius: 8px;
-		padding: 8px;
+	.integration-title,
+	.integration-meta,
+	.integration-description {
+		display: block;
 	}
 
-	.table-wrap {
-		overflow-x: auto;
+	.integration-title {
+		font-size: 1.05rem;
+		font-weight: 600;
+		margin-bottom: 4px;
 	}
 
-	table {
-		width: 100%;
-		border-collapse: collapse;
-		font-size: 0.83rem;
+	.integration-meta {
+		color: #466347;
+		margin-bottom: 6px;
 	}
 
-	th,
-	td {
-		border: 1px solid #e5e7eb;
-		padding: 6px;
-		text-align: left;
-	}
-
-	th {
-		background: #111827;
-		color: white;
-	}
-
-	tr:nth-child(even) {
-		background: #f9fafb;
-	}
-
-	@media (max-width: 720px) {
-		main {
-			padding: 16px 10px 40px;
-		}
-
-		header {
-			padding: 14px;
-		}
-
-		h1 {
-			font-size: 1.45rem;
-		}
+	.integration-description {
+		color: #4a5647;
+		line-height: 1.5;
 	}
 </style>

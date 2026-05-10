@@ -64,7 +64,7 @@
 	<section class="global-links">
 		<h2>Enlaces Globales del Proyecto</h2>
 		<div class="links-row">
-			<a href="/integrations/pgg" class="btn-github">
+			<a href="/integrations" class="btn-github">
 				<span class="icon">🔗</span> Integrations
 			</a>
 			<a href={githubRepo} target="_blank" class="btn-github">
