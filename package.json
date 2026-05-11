@@ -34,8 +34,10 @@
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "nedb": "^1.8.0",
+    "package.json": "^2.0.1",
     "passport": "^0.7.0",
-    "passport-github2": "^0.1.12"
+    "passport-github2": "^0.1.12",
+    "playwright": "^1.59.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
