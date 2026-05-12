@@ -35,15 +35,17 @@
 		},
 		// 4. POKEMON (PROXY)
 		// Busca el objeto de Pokémon y cámbialo por este:
+// ... en tu array integrations ...
 {
     id: 'ext-pokemon',
-    title: 'PokeAPI (Vía Proxy)',
-    type: 'Proxy Propio / No SOS',
-    fetchUrl: '/api/v1/proxy-pokemon', // <--- AHORA SÍ PASARÁ AL BACKEND
+    title: 'PokeAPI (Directa - Prueba)',
+    type: 'Prueba sin proxy',
+    fetchUrl: 'https://pokeapi.co/api/v2/pokemon?limit=5', 
     apiUrl: 'https://pokeapi.co/api/v2/pokemon',
     columns: ['name', 'url'],
     accent: '#ff7675'
 },
+
 		// 5. PAÍSES
 		{
 			id: 'ext-paises',

@@ -385,7 +385,7 @@ function loadIntegrationsProxy(app) {
             console.log("Petición recibida en el proxy de Pokemon");
             const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10");
             const data = await response.json();
-            // Enviamos directamente el array 'results' al frontend
+           
             res.json(data.results); 
         } catch (error) {
             console.error("Error en Proxy Pokemon:", error);
