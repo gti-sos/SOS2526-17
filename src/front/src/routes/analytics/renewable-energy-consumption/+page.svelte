@@ -139,13 +139,7 @@
 </main>
 
 <style>
-    :global(body) {
-        margin: 0;
-        background: linear-gradient(180deg, #f5f7fa 0%, #e5ecf3 100%);
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-
-    .page {
+.page {
         min-height: 100vh;
         display: flex;
         justify-content: center;

@@ -272,11 +272,7 @@
 </main>
 
 <style>
-	:global(body) {
-		background-color: #f8fafc;
-		margin: 0;
-	}
-	main {
+main {
 		max-width: 1100px;
 		margin: 2rem auto;
 		font-family: 'Segoe UI', system-ui, sans-serif;

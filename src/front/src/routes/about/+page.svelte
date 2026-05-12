@@ -47,32 +47,36 @@
         <ul>
             <li>
                 <a href="/api/v1/water-productivities">Water Productivities API</a>
+                -
+                <a href="/api/v1/water-productivities/docs">docs</a>
                 (Mario Ramírez García)
             </li>
             <li>
                 <a href="/api/v1/renewable-energy-consumptions">Renewable Energy Consumptions API</a>
+                -
+                <a href="/api/v1/renewable-energy-consumptions/docs">docs</a>
                 (Pablo Gamero García)
             </li>
             <li>
                 <a href="/api/v1/agriculture-land">Agricultural land API</a>
+                -
+                <a href="/api/v1/agriculture-land/docs">docs</a>
                 (Felipe Morgado Martinez)
             </li>
         </ul>
     </section>
     
-    <div style="margin-top: 40px;">
-        <a href="/" style="font-weight: bold;">← Volver al Home</a>
+    <div class="back-row">
+        <a href="/" class="back-home">← Volver al Home</a>
     </div>
 </main>
 
 <style>
     main {
-        font-family: system-ui, -apple-system, sans-serif;
         line-height: 1.6;
         max-width: 800px;
         margin: 40px auto;
         padding: 0 20px;
-        color: #24292e;
     }
     
     h1, h2 {
@@ -95,5 +99,13 @@
 
     ul {
         padding-left: 20px;
+    }
+
+    .back-row {
+        margin-top: 40px;
+    }
+
+    .back-home {
+        font-weight: 700;
     }
 </style>

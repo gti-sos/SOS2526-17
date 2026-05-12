@@ -222,12 +222,7 @@
 </main>
 
 <style>
-	:global(body) {
-		background-color: #0f172a; /* Fondo ultra oscuro */
-		color: #f1f5f9;
-		margin: 0;
-	}
-	main {
+main {
 		max-width: 1300px;
 		margin: 2rem auto;
 		font-family: 'Inter', system-ui, sans-serif;

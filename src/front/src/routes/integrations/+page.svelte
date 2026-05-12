@@ -54,14 +54,7 @@
 </main>
 
 <style>
-	:global(body) {
-		margin: 0;
-		background: #f5f1ea;
-		color: #241f19;
-		font-family: Georgia, 'Times New Roman', serif;
-	}
-
-	.page {
+.page {
 		max-width: 980px;
 		margin: 0 auto;
 		padding: 32px 20px 64px;

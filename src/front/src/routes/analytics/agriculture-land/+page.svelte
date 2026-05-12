@@ -94,11 +94,7 @@
 </main>
 
 <style>
-    :global(body) { 
-        background-color: #0f0f0f; 
-        margin: 0; 
-    }
-    main { 
+main { 
         display: flex; 
         justify-content: center; 
         padding: 40px; 

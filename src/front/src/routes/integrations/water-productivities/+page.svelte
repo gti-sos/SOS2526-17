@@ -82,14 +82,7 @@
 </main>
 
 <style>
-	:global(body) {
-		margin: 0;
-		background: #f3f5f0;
-		color: #1f2a1e;
-		font-family: Georgia, 'Times New Roman', serif;
-	}
-
-	.page {
+.page {
 		max-width: 1040px;
 		margin: 0 auto;
 		padding: 32px 20px 64px;

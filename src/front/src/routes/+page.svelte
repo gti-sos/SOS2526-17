@@ -75,14 +75,7 @@
 </main>
 
 <style>
-	:global(body) {
-		background-color: #f4f7f6;
-		margin: 0;
-		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		color: #333;
-	}
-
-	main {
+main {
 		max-width: 1000px;
 		margin: 0 auto;
 		padding: 40px 20px;

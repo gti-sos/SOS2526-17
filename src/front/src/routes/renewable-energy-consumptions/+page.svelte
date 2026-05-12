@@ -407,14 +407,7 @@
 </main>
 
 <style>
-    :global(body) {
-        margin: 0;
-        background: #f3f4f1;
-        color: #1f2328;
-        font-family: 'Manrope', system-ui, sans-serif;
-    }
-
-    .page {
+.page {
         max-width: 1120px;
         margin: 0 auto;
         padding: 24px 16px 36px;

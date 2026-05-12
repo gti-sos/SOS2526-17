@@ -143,8 +143,7 @@
 </main>
 
 <style>
-	:global(body) { margin: 0; background: #f4f2ec; color: #24201b; font-family: Georgia, 'Times New Roman', serif; }
-	.page { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
+.page { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
 	.header, .content { background: #fffdf9; border: 1px solid #d8d0c4; padding: 26px; }
 	h1, h2 { margin: 0 0 12px; font-size: 1.85rem; font-weight: 600; }
 	p { margin: 0; line-height: 1.6; }

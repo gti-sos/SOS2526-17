@@ -143,14 +143,7 @@
 </main>
 
 <style>
-    :global(body) {
-        background: radial-gradient(circle at top right, #fdfcfb 0%, #e2d1c3 100%);
-        min-height: 100vh;
-        margin: 0;
-        font-family: 'Inter', sans-serif;
-    }
-
-    .container {
+.container {
         display: flex;
         justify-content: center;
         align-items: center;
