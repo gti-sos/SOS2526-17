@@ -15,6 +15,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm --prefix src/front install --include=dev",
     "prestart": "npm run build",
     "start": "node index.js",
     "build": "cd src/front && npm run build",
