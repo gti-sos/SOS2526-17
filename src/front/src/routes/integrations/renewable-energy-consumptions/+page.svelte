@@ -36,11 +36,25 @@
 			description: 'Relación entre puntos de carga y potencia total en un gráfico de dispersión.'
 		},
 		{
+			href: '/integrations/renewable-energy-consumptions/renewable-vs-global-ev-charging-infrastructures',
+			title: 'Mi API + Global EV Charging Infrastructures',
+			meta: 'Gráfica conjunta',
+			description:
+				'Cruce visual entre el total renovable de mi API y los indicadores de recarga EV.'
+		},
+		{
 			href: '/integrations/renewable-energy-consumptions/restcountries',
 			title: 'REST Countries',
 			meta: 'API no SOS directa',
 			description:
 				'Reparto de población de los países europeos más poblados en un gráfico circular.'
+		},
+		{
+			href: '/integrations/renewable-energy-consumptions/renewable-vs-restcountries',
+			title: 'Mi API + REST Countries',
+			meta: 'Gráfica conjunta',
+			description:
+				'Comparativa entre el total renovable de mi API y población/superficie obtenidas de REST Countries.'
 		},
 		{
 			href: '/integrations/renewable-energy-consumptions/open-meteo',
