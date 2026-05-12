@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <script>
 	import { onMount } from 'svelte';
 
