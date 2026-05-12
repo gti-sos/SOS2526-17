@@ -73,13 +73,10 @@
 				<a href="">Vídeo Vídeo Mario Ramírez García (water-productivities)</a>
 			</li>
 			<li>
-				<a href="">Vídeo (Pablo Gamero García (renewable-energy-consumptions)</a>
+				<a href="">Vídeo Pablo Gamero García (renewable-energy-consumptions)</a>
 			</li>
 			<li>
-				<a href="/api/v1/agriculture-land">Agricultural land API</a>
-				-
-				<a href="/api/v1/agriculture-land/docs">docs</a>
-				(Felipe Morgado Martinez)
+				<a href="">Vídeo Felipe Morgado Martinez (agriculture-land)</a>
 			</li>
 		</ul>
 	</section>

@@ -113,13 +113,13 @@
 
 		const hcModule = await import('highcharts');
 		const Highcharts = hcModule.default || hcModule;
-		const hcmModule = await import('highcharts/highcharts-more');
-		const HighchartsMore = hcmModule.default || hcmModule;
-		const finalizeMore =
-			typeof HighchartsMore === 'function' ? HighchartsMore : HighchartsMore?.default;
+		const tmModule = await import('highcharts/modules/treemap');
+		const TreemapModule = tmModule.default || tmModule;
+		const finalizeTreemap =
+			typeof TreemapModule === 'function' ? TreemapModule : TreemapModule?.default;
 
-		if (typeof finalizeMore === 'function') {
-			finalizeMore(Highcharts);
+		if (typeof finalizeTreemap === 'function') {
+			finalizeTreemap(Highcharts);
 		}
 
 		chartInstance = Highcharts.chart(chartHost, config);
@@ -169,7 +169,7 @@
 				};
 			})
 			.filter(Boolean)
-			.sort((a, b) => b.chargingPoint - a.chargingPoint);
+			.sort((a, b) => b.renewableTotal - a.renewableTotal);
 	}
 
 	function buildRankingRows(renewableMap, evPayload) {
@@ -202,77 +202,120 @@
 
 	function buildMatchedChartConfig(chartRows) {
 		return {
-			chart: { type: 'bubble', backgroundColor: '#fffdf9', zooming: { type: 'xy' } },
-			title: { text: 'Renovables frente a infraestructura EV' },
-			subtitle: { text: 'Cruce directo por país cuando ambas APIs comparten registro.' },
-			xAxis: { title: { text: 'Total renovable de mi API' } },
-			yAxis: { title: { text: 'Charging points' } },
-			legend: { enabled: false },
-			credits: { enabled: false },
-			plotOptions: {
-				bubble: {
-					minSize: 12,
-					maxSize: 42
-				}
+			chart: {
+				type: 'treemap',
+				backgroundColor: '#fffdf9'
+			},
+			title: {
+				text: 'Comparativa por país: renovables frente a infraestructura EV'
+			},
+			subtitle: {
+				text: 'Área según total renovable y color según charging points.'
+			},
+			colorAxis: {
+				minColor: '#dfe8d6',
+				maxColor: '#3f6b43'
 			},
 			tooltip: {
 				useHTML: true,
-				pointFormat:
-					'<b>{point.name}</b><br/>Mi API: {point.x}<br/>Charging points: {point.y}<br/>Potencia total: {point.z}'
+				pointFormatter() {
+					return (
+						`<b>${this.country}</b> (${this.renewableYear}/${this.evYear})<br/>` +
+						`Total renovable: <b>${this.value}</b><br/>` +
+						`Charging points: <b>${this.colorValue}</b><br/>` +
+						`Potencia total: <b>${this.totalPower}</b>`
+					);
+				}
+			},
+			plotOptions: {
+				treemap: {
+					layoutAlgorithm: 'squarified',
+					dataLabels: {
+						enabled: true,
+						style: {
+							textOutline: 'none',
+							fontSize: '11px'
+						},
+						formatter() {
+							return this.point.name;
+						}
+					}
+				}
 			},
 			series: [
 				{
-					name: 'Cruce por país',
+					type: 'treemap',
 					data: chartRows.map((row) => ({
-						name: `${row.country} (${row.renewableYear}/${row.evYear})`,
-						x: row.renewableTotal,
-						y: row.chargingPoint,
-						z: row.totalPower
-					})),
-					color: '#3f6b43'
+						name: row.country,
+						country: row.country,
+						renewableYear: row.renewableYear,
+						evYear: row.evYear,
+						value: row.renewableTotal,
+						colorValue: row.chargingPoint,
+						totalPower: row.totalPower
+					}))
 				}
-			]
+			],
+			credits: { enabled: false }
 		};
 	}
 
 	function buildRankingChartConfig(chartRows) {
 		return {
-			chart: { backgroundColor: '#fffdf9' },
-			title: { text: 'Comparativa conjunta de rankings' },
-			subtitle: {
-				text: 'No hay países coincidentes, así que se comparan los tops de ambas APIs en una misma vista.'
+			chart: {
+				type: 'treemap',
+				backgroundColor: '#fffdf9'
 			},
-			xAxis: { categories: chartRows.map((row) => `Top ${row.rank}`) },
-			yAxis: [
-				{
-					title: { text: 'Total renovable' },
-					labels: { style: { color: '#3f6b43' } }
-				},
-				{
-					title: { text: 'Charging points' },
-					labels: { style: { color: '#ad6c31' } },
-					opposite: true
+			title: {
+				text: 'Comparativa conjunta de rankings'
+			},
+			subtitle: {
+				text: 'Top combinado cuando no hay coincidencias directas por país.'
+			},
+			colorAxis: {
+				minColor: '#f3dec9',
+				maxColor: '#ad6c31'
+			},
+			tooltip: {
+				useHTML: true,
+				pointFormatter() {
+					return (
+						`<b>${this.name}</b><br/>` +
+						`País renovable: <b>${this.renewableCountry}</b><br/>` +
+						`Total renovable: <b>${this.value}</b><br/>` +
+						`País EV: <b>${this.evCountry}</b><br/>` +
+						`Charging points: <b>${this.colorValue}</b>`
+					);
 				}
-			],
-			legend: { align: 'center', verticalAlign: 'bottom' },
-			credits: { enabled: false },
+			},
+			plotOptions: {
+				treemap: {
+					layoutAlgorithm: 'squarified',
+					dataLabels: {
+						enabled: true,
+						style: {
+							textOutline: 'none',
+							fontSize: '11px'
+						},
+						formatter() {
+							return this.point.name;
+						}
+					}
+				}
+			},
 			series: [
 				{
-					type: 'column',
-					name: 'Mi API',
-					data: chartRows.map((row) => row.renewableTotal),
-					color: '#3f6b43',
-					tooltip: { valueSuffix: ' total renovable' }
-				},
-				{
-					type: 'spline',
-					name: 'Global EV Charging Infrastructures',
-					data: chartRows.map((row) => row.chargingPoint),
-					color: '#ad6c31',
-					yAxis: 1,
-					tooltip: { valueSuffix: ' charging points' }
+					type: 'treemap',
+					data: chartRows.map((row) => ({
+						name: `Top ${row.rank}`,
+						renewableCountry: row.renewableCountry,
+						evCountry: row.evCountry,
+						value: row.renewableTotal,
+						colorValue: row.chargingPoint
+					}))
 				}
-			]
+			],
+			credits: { enabled: false }
 		};
 	}
 
@@ -460,7 +503,7 @@
 	}
 
 	.chart-wrap {
-		min-height: 420px;
+		height: 520px;
 		border: 1px solid #e0d9cf;
 		background: white;
 		margin-bottom: 22px;
