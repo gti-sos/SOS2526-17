@@ -1,8 +1,7 @@
 import Datastore from 'nedb';
 import fs from 'fs';
 import util from 'util';
-
-
+import axios from 'axios';
 
  // --- BLOQUE ouath
 import passport from 'passport';
@@ -377,4 +376,22 @@ function loadBackendFMM_v2(app) {
 }
 
 
-export { agricultureLandReady, loadBackendFMM, loadBackendFMM_v2 };
+
+
+function loadIntegrationsProxy(app) {
+    // Fíjate que le hemos puesto 
+    app.get("/api/v1/proxy-pokemon", async (req, res) => {
+        try {
+            console.log("Petición recibida en el proxy de Pokemon");
+            const response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=10");
+            const data = await response.json();
+            // Enviamos directamente el array 'results' al frontend
+            res.json(data.results); 
+        } catch (error) {
+            console.error("Error en Proxy Pokemon:", error);
+            res.status(500).json({ error: "Error conectando con PokeAPI" });
+        }
+    });
+}
+
+export { agricultureLandReady, loadBackendFMM, loadBackendFMM_v2, loadIntegrationsProxy };
