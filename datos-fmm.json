@@ -74,4 +74,12 @@
     "types_land": 0,
     "index": 1
   },
+   {
+    "country": "bolivia",
+    "year": 1990,
+    "country_code": "bol",
+    " land_agriculture": 35.0779055731558,
+    "types_land": 0,
+    "index": 1
+  }
 ]
