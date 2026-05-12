@@ -55,8 +55,10 @@
 </script>
 
 <main>
-    <h1>Detalle del Recurso</h1>
-    <h3>{country} - {year}</h3>
+    <header>
+        <h1>Detalle del Recurso</h1>
+        <h3>{country} - {year}</h3>
+    </header>
 
     {#if message}
         <div class="alert {messageType}">{message}</div>

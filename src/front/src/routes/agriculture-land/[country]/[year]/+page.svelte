@@ -103,28 +103,28 @@
     <section class="card shadow">
         <div class="grid">
             <div class="field">
-                <label>País (Identificador)</label>
-                <input bind:value={entry.country} readonly class="readonly" />
+                <label for="country">País (Identificador)</label>
+                <input id="country" bind:value={entry.country} readonly class="readonly" />
             </div>
             <div class="field">
-                <label>Año (Identificador)</label>
-                <input type="number" bind:value={entry.year} readonly class="readonly" />
+                <label for="year">Año (Identificador)</label>
+                <input id="year" type="number" bind:value={entry.year} readonly class="readonly" />
             </div>
             <div class="field">
-                <label>Código de País</label>
-                <input bind:value={entry.country_code} placeholder="Ej: ESP" />
+                <label for="country-code">Código de País</label>
+                <input id="country-code" bind:value={entry.country_code} placeholder="Ej: ESP" />
             </div>
             <div class="field">
-                <label>Superficie Agrícola (%)</label>
-                <input type="number" step="0.01" bind:value={entry.land_agriculture} />
+                <label for="land-agriculture">Superficie Agrícola (%)</label>
+                <input id="land-agriculture" type="number" step="0.01" bind:value={entry.land_agriculture} />
             </div>
             <div class="field">
-                <label>Tipo de Tierra</label>
-                <input type="number" bind:value={entry.types_land} />
+                <label for="types-land">Tipo de Tierra</label>
+                <input id="types-land" type="number" bind:value={entry.types_land} />
             </div>
             <div class="field">
-                <label>Índice</label>
-                <input type="number" bind:value={entry.index} />
+                <label for="index">Índice</label>
+                <input id="index" type="number" bind:value={entry.index} />
             </div>
         </div>
 
