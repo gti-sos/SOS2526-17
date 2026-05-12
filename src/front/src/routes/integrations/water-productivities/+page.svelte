@@ -27,7 +27,7 @@
 			<li>
 				<a class="integration-link" href="/integrations/water-productivities/birth-death-growth-rates">
 					<span class="integration-title">Birth death growth rates</span>
-					<span class="integration-meta">SOS externo (G12) directo</span>
+					<span class="integration-meta">SOS externo (G12) con proxy</span>
 					<span class="integration-description">Análisis del crecimiento demográfico comparado con la productividad del agua.</span>
 				</a>
 			</li>
@@ -35,7 +35,7 @@
 			<li>
 				<a class="integration-link" href="/integrations/water-productivities/global-ev-sales">
 					<span class="integration-title">Global EV Sales</span>
-					<span class="integration-meta">SOS externo (G16) directo</span>
+					<span class="integration-meta">SOS externo (G16) con proxy</span>
 					<span class="integration-description">Relación entre la eficiencia hídrica por país y la adopción de vehículos eléctricos.</span>
 				</a>
 			</li>
@@ -43,7 +43,7 @@
 			<li>
 				<a class="integration-link" href="/integrations/water-productivities/spice-stats">
 					<span class="integration-title">Spice Stats</span>
-					<span class="integration-meta">SOS externo (G20) estable</span>
+					<span class="integration-meta">SOS externo (G20) con proxy</span>
 					<span class="integration-description">Mashup visual entre el valor económico del agua y las estadísticas de consumo de especias.</span>
 				</a>
 			</li>
@@ -51,8 +51,29 @@
 			<li>
 				<a class="integration-link" href="/integrations/water-productivities/daily-global-stock-market-indicators">
 					<span class="integration-title">Daily Global Stock Market Indicators</span>
-					<span class="integration-meta">API Externa Estable</span>
+					<span class="integration-meta">SOS externo (G23) con proxy</span>
 					<span class="integration-description">Comparativa de indicadores bursátiles mundiales frente a la productividad hídrica regional.</span>
+				</a>
+			</li>
+			<li>
+				<a class="integration-link" href="/integrations/water-productivities/world-bank-gdp">
+					<span class="integration-title">World bank gdp</span>
+					<span class="integration-meta">Api no SOS con proxy</span>
+					<span class="integration-description">Datos económicos internacionales (PIB)</span>
+				</a>
+			</li>
+			<li>
+				<a class="integration-link" href="/integrations/water-productivities/weather-stats">
+					<span class="integration-title">Weather stats</span>
+					<span class="integration-meta">Api no SOS directa</span>
+					<span class="integration-description">Análisis Meteorológico con Open-Meteo vs productividad agua</span>
+				</a>
+			</li>
+			<li>
+				<a class="integration-link" href="/integrations/water-productivities/rest-countries">
+					<span class="integration-title">Rest Countries</span>
+					<span class="integration-meta">Api no SOS directa</span>
+					<span class="integration-description">Población Mundial vs. Sostenibilidad Hídrica</span>
 				</a>
 			</li>
 

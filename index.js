@@ -68,6 +68,9 @@ const INTEGRATIONS_PROXY_SOURCES = {
   "daily-global-stock-market-indicators": {
     endpoint: "https://mi-api-estable-sos.onrender.com/api/v1/daily-global-stock-market-indicators",
     loadInitialData: "https://mi-api-estable-sos.onrender.com/api/v1/daily-global-stock-market-indicators/loadInitialData",
+  },
+  "world-bank-gdp": {
+    endpoint: "https://api.worldbank.org/v2/country/ESP;DNK;ARG;AFG;ARE;ALB/indicator/NY.GDP.MKTP.CD?format=json&date=2022",
   }
 };
 
