@@ -1,13 +1,248 @@
 <script>
+	// @ts-nocheck
 	import { onMount } from 'svelte';
-	let stats = $state([]); let loading = $state(true); let error = $state(''); let fetchedAt = $state('-');
-	function goBack(){ if(window.history.length>1) return window.history.back(); window.location.href='/integrations/renewable-energy-consumptions'; }
-	function numberValue(value){ const parsed = Number(value); return Number.isFinite(parsed) ? parsed : 0; }
-	function formatNumber(value,digits=0){ return new Intl.NumberFormat('es-ES',{maximumFractionDigits:digits,minimumFractionDigits:digits}).format(numberValue(value)); }
-	function withCacheBust(url){ const separator = url.includes('?') ? '&' : '?'; return `${url}${separator}t=${Date.now()}`; }
-	async function loadData(){ loading=true; error=''; try{ const response = await fetch(withCacheBust('https://api.open-meteo.com/v1/forecast?latitude=40.4168&longitude=-3.7038&current=temperature_2m,wind_speed_10m')); if(!response.ok) throw new Error(`HTTP ${response.status}`); const payload = await response.json(); const current = payload?.current || {}; stats = [{label:'Momento',value:current.time||'-'},{label:'Temperatura',value:`${formatNumber(current.temperature_2m,1)} °C`},{label:'Viento',value:`${formatNumber(current.wind_speed_10m,1)} km/h`},{label:'Zona horaria',value:payload?.timezone||'-'}]; fetchedAt = new Date().toLocaleTimeString('es-ES'); }catch(err){ stats=[]; error=String(err?.message||err);} finally{ loading=false; } }
+
+	const BACK_URL = '/integrations/renewable-energy-consumptions';
+	const API_URL =
+		'https://api.open-meteo.com/v1/forecast?latitude=40.4168&longitude=-3.7038&current=temperature_2m,wind_speed_10m';
+	const formatter = (digits = 0) =>
+		new Intl.NumberFormat('es-ES', {
+			maximumFractionDigits: digits,
+			minimumFractionDigits: digits
+		});
+
+	let stats = $state([]);
+	let loading = $state(true);
+	let error = $state('');
+	let fetchedAt = $state('-');
+
+	function goBack() {
+		if (window.history.length > 1) {
+			window.history.back();
+			return;
+		}
+
+		window.location.href = BACK_URL;
+	}
+
+	function numberValue(value) {
+		const parsed = Number(value);
+		return Number.isFinite(parsed) ? parsed : 0;
+	}
+
+	function formatNumber(value, digits = 0) {
+		return formatter(digits).format(numberValue(value));
+	}
+
+	function withCacheBust(url) {
+		const separator = url.includes('?') ? '&' : '?';
+		return `${url}${separator}t=${Date.now()}`;
+	}
+
+	async function loadData() {
+		loading = true;
+		error = '';
+
+		try {
+			const response = await fetch(withCacheBust(API_URL));
+			if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+			const payload = await response.json();
+			const current = payload?.current || {};
+
+			stats = [
+				{ label: 'Momento', value: current.time || '-' },
+				{ label: 'Temperatura', value: `${formatNumber(current.temperature_2m, 1)} °C` },
+				{ label: 'Viento', value: `${formatNumber(current.wind_speed_10m, 1)} km/h` },
+				{ label: 'Zona horaria', value: payload?.timezone || '-' }
+			];
+			fetchedAt = new Date().toLocaleTimeString('es-ES');
+		} catch (err) {
+			stats = [];
+			error = String(err?.message || err);
+		} finally {
+			loading = false;
+		}
+	}
+
 	onMount(loadData);
 </script>
-<main class="page"><header class="header"><div><h1>Open-Meteo</h1><p>Ficha textual con el tiempo actual en Madrid.</p></div><div class="meta-grid"><div><span>Origen</span><strong>API no SOS directa</strong></div><div><span>Última carga</span><strong>{fetchedAt}</strong></div></div></header><div class="nav-links"><button type="button" class="back-link" onclick={goBack}>Atrás</button></div><section class="content"><div class="toolbar"><h2>Vista</h2><button type="button" onclick={loadData}>Recargar</button></div>{#if loading}<p class="status">Cargando datos...</p>{:else if error}<p class="error">Error al cargar la integración: {error}</p>{:else if stats.length>0}<ul class="stats-list">{#each stats as stat}<li><span>{stat.label}</span><strong>{stat.value}</strong></li>{/each}</ul>{:else}<p class="status">Open-Meteo no devolvió datos actuales.</p>{/if}</section></main>
+
+<main class="page">
+	<header class="header">
+		<div>
+			<h1>Open-Meteo</h1>
+			<p>Ficha textual con el tiempo actual en Madrid.</p>
+		</div>
+		<div class="meta-grid">
+			<div><span>Origen</span><strong>API no SOS directa</strong></div>
+			<div><span>Última carga</span><strong>{fetchedAt}</strong></div>
+		</div>
+	</header>
+
+	<div class="nav-links">
+		<button type="button" class="back-link" onclick={goBack}>Atrás</button>
+	</div>
+
+	<section class="content">
+		<div class="toolbar">
+			<h2>Vista</h2>
+			<button type="button" onclick={loadData}>Recargar</button>
+		</div>
+
+		{#if loading}
+			<p class="status">Cargando datos...</p>
+		{:else if error}
+			<p class="error">Error al cargar la integración: {error}</p>
+		{:else if stats.length > 0}
+			<ul class="stats-list">
+				{#each stats as stat}
+					<li>
+						<span>{stat.label}</span>
+						<strong>{stat.value}</strong>
+					</li>
+				{/each}
+			</ul>
+		{:else}
+			<p class="status">Open-Meteo no devolvió datos actuales.</p>
+		{/if}
+	</section>
+</main>
+
 <style>
-.page{max-width:1100px;margin:0 auto;padding:32px 20px 64px}.header,.content{background:#fffdf9;border:1px solid #d8d0c4;padding:26px}h1,h2{margin:0 0 12px;font-size:1.85rem;font-weight:600}p{margin:0;line-height:1.6}.meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.meta-grid div{border-top:1px solid #ddd4c9;padding-top:10px}.meta-grid span,.meta-grid strong{display:block}.meta-grid span{color:#5a5148;margin-bottom:4px}.nav-links{margin:16px 0}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:18px}button{background:#4f5d39;color:white;border:1px solid #4f5d39;padding:10px 14px;border-radius:6px;font:inherit;cursor:pointer}button:hover{background:#424f30}.back-link{background:#fffdf9;color:#24201b;border-color:#cfc4b5}.back-link:hover{background:#f0eadf}.status,.error{padding:14px;border:1px solid #ddd4c9;background:#faf7f1}.error{color:#7f2f22;background:#fdf2ef;border-color:#ebc7c0}.stats-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;list-style:none;margin:0;padding:0}.stats-list li{border:1px solid #ddd4c9;padding:16px;background:#faf7f1}.stats-list span,.stats-list strong{display:block}.stats-list span{color:#5d544b;margin-bottom:8px}@media (max-width:760px){.meta-grid,.stats-list{grid-template-columns:1fr}.toolbar{display:block}.toolbar button{margin-top:10px}}</style>
+	.page {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 32px 20px 64px;
+	}
+
+	.header,
+	.content {
+		background: #fffdf9;
+		border: 1px solid #d8d0c4;
+		padding: 26px;
+	}
+
+	h1,
+	h2 {
+		margin: 0 0 12px;
+		font-size: 1.85rem;
+		font-weight: 600;
+	}
+
+	p {
+		margin: 0;
+		line-height: 1.6;
+	}
+
+	.meta-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 14px;
+		margin-top: 18px;
+	}
+
+	.meta-grid div {
+		border-top: 1px solid #ddd4c9;
+		padding-top: 10px;
+	}
+
+	.meta-grid span,
+	.meta-grid strong {
+		display: block;
+	}
+
+	.meta-grid span {
+		color: #5a5148;
+		margin-bottom: 4px;
+	}
+
+	.nav-links {
+		margin: 16px 0;
+	}
+
+	.toolbar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 16px;
+		margin-bottom: 18px;
+	}
+
+	button {
+		background: #4f5d39;
+		color: white;
+		border: 1px solid #4f5d39;
+		padding: 10px 14px;
+		border-radius: 6px;
+		font: inherit;
+		cursor: pointer;
+	}
+
+	button:hover {
+		background: #424f30;
+	}
+
+	.back-link {
+		background: #fffdf9;
+		color: #24201b;
+		border-color: #cfc4b5;
+	}
+
+	.back-link:hover {
+		background: #f0eadf;
+	}
+
+	.status,
+	.error {
+		padding: 14px;
+		border: 1px solid #ddd4c9;
+		background: #faf7f1;
+	}
+
+	.error {
+		color: #7f2f22;
+		background: #fdf2ef;
+		border-color: #ebc7c0;
+	}
+
+	.stats-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 14px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.stats-list li {
+		border: 1px solid #ddd4c9;
+		padding: 16px;
+		background: #faf7f1;
+	}
+
+	.stats-list span,
+	.stats-list strong {
+		display: block;
+	}
+
+	.stats-list span {
+		color: #5d544b;
+		margin-bottom: 8px;
+	}
+
+	@media (max-width: 760px) {
+		.meta-grid,
+		.stats-list {
+			grid-template-columns: 1fr;
+		}
+
+		.toolbar {
+			display: block;
+		}
+
+		.toolbar button {
+			margin-top: 10px;
+		}
+	}
+</style>

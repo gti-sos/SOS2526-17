@@ -1,5 +1,14 @@
 <script>
+	// @ts-nocheck
 	import { onMount } from 'svelte';
+
+	const BACK_URL = '/integrations/renewable-energy-consumptions';
+	const API_URL = 'https://soporte-sos.onrender.com/api/v1/cholera-stats?limit=24';
+	const numberFormatter = (digits = 0) =>
+		new Intl.NumberFormat('es-ES', {
+			maximumFractionDigits: digits,
+			minimumFractionDigits: digits
+		});
 
 	let rows = $state([]);
 	let loading = $state(true);
@@ -12,7 +21,7 @@
 			return;
 		}
 
-		window.location.href = '/integrations/renewable-energy-consumptions';
+		window.location.href = BACK_URL;
 	}
 
 	function numberValue(value) {
@@ -21,10 +30,7 @@
 	}
 
 	function formatNumber(value, digits = 0) {
-		return new Intl.NumberFormat('es-ES', {
-			maximumFractionDigits: digits,
-			minimumFractionDigits: digits
-		}).format(numberValue(value));
+		return numberFormatter(digits).format(numberValue(value));
 	}
 
 	function withCacheBust(url) {
@@ -55,10 +61,9 @@
 		error = '';
 
 		try {
-			const response = await fetch(
-				withCacheBust('https://soporte-sos.onrender.com/api/v1/cholera-stats?limit=24')
-			);
+			const response = await fetch(withCacheBust(API_URL));
 			if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
 			const payload = await response.json();
 			rows = buildRankingRows(Array.isArray(payload) ? payload : []);
 			fetchedAt = new Date().toLocaleTimeString('es-ES');
@@ -107,7 +112,9 @@
 							<strong>{row.label}</strong>
 							<span>{row.aux}</span>
 						</div>
-						<div class="ranking-meter"><div class="ranking-fill" style={`width: ${row.width}`}></div></div>
+						<div class="ranking-meter">
+							<div class="ranking-fill" style={`width: ${row.width}`}></div>
+						</div>
 						<div class="ranking-value">{formatNumber(row.value)}</div>
 					</li>
 				{/each}
@@ -119,29 +126,157 @@
 </main>
 
 <style>
-.page { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
-	.header, .content { background: #fffdf9; border: 1px solid #d8d0c4; padding: 26px; }
-	h1, h2 { margin: 0 0 12px; font-size: 1.85rem; font-weight: 600; }
-	p { margin: 0; line-height: 1.6; }
-	.meta-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
-	.meta-grid div { border-top: 1px solid #ddd4c9; padding-top: 10px; }
-	.meta-grid span, .meta-grid strong { display: block; }
-	.meta-grid span { color: #5a5148; margin-bottom: 4px; }
-	.nav-links { margin: 16px 0; }
-	.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; }
-	button { background: #4f5d39; color: white; border: 1px solid #4f5d39; padding: 10px 14px; border-radius: 6px; font: inherit; cursor: pointer; }
-	button:hover { background: #424f30; }
-	.back-link { background: #fffdf9; color: #24201b; border-color: #cfc4b5; }
-	.back-link:hover { background: #f0eadf; }
-	.status, .error { padding: 14px; border: 1px solid #ddd4c9; background: #faf7f1; }
-	.error { color: #7f2f22; background: #fdf2ef; border-color: #ebc7c0; }
-	.ranking-list { list-style: none; margin: 0; padding: 0; }
-	.ranking-list li + li { margin-top: 14px; }
-	.ranking-list li { display: grid; grid-template-columns: minmax(220px, 2fr) minmax(160px, 3fr) auto; gap: 14px; align-items: center; }
-	.ranking-copy strong, .ranking-copy span { display: block; }
-	.ranking-copy span { color: #655b4f; margin-top: 4px; }
-	.ranking-meter { height: 12px; background: #ece5da; }
-	.ranking-fill { height: 100%; background: #8b6241; }
-	.ranking-value { font-variant-numeric: tabular-nums; }
-	@media (max-width: 760px) { .meta-grid { grid-template-columns: 1fr; } .toolbar, .ranking-list li { display: block; } .toolbar button, .ranking-meter, .ranking-value { margin-top: 10px; } }
+	.page {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 32px 20px 64px;
+	}
+
+	.header,
+	.content {
+		background: #fffdf9;
+		border: 1px solid #d8d0c4;
+		padding: 26px;
+	}
+
+	h1,
+	h2 {
+		margin: 0 0 12px;
+		font-size: 1.85rem;
+		font-weight: 600;
+	}
+
+	p {
+		margin: 0;
+		line-height: 1.6;
+	}
+
+	.meta-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 14px;
+		margin-top: 18px;
+	}
+
+	.meta-grid div {
+		border-top: 1px solid #ddd4c9;
+		padding-top: 10px;
+	}
+
+	.meta-grid span,
+	.meta-grid strong {
+		display: block;
+	}
+
+	.meta-grid span {
+		color: #5a5148;
+		margin-bottom: 4px;
+	}
+
+	.nav-links {
+		margin: 16px 0;
+	}
+
+	.toolbar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 16px;
+		margin-bottom: 18px;
+	}
+
+	button {
+		background: #4f5d39;
+		color: white;
+		border: 1px solid #4f5d39;
+		padding: 10px 14px;
+		border-radius: 6px;
+		font: inherit;
+		cursor: pointer;
+	}
+
+	button:hover {
+		background: #424f30;
+	}
+
+	.back-link {
+		background: #fffdf9;
+		color: #24201b;
+		border-color: #cfc4b5;
+	}
+
+	.back-link:hover {
+		background: #f0eadf;
+	}
+
+	.status,
+	.error {
+		padding: 14px;
+		border: 1px solid #ddd4c9;
+		background: #faf7f1;
+	}
+
+	.error {
+		color: #7f2f22;
+		background: #fdf2ef;
+		border-color: #ebc7c0;
+	}
+
+	.ranking-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.ranking-list li + li {
+		margin-top: 14px;
+	}
+
+	.ranking-list li {
+		display: grid;
+		grid-template-columns: minmax(220px, 2fr) minmax(160px, 3fr) auto;
+		gap: 14px;
+		align-items: center;
+	}
+
+	.ranking-copy strong,
+	.ranking-copy span {
+		display: block;
+	}
+
+	.ranking-copy span {
+		color: #655b4f;
+		margin-top: 4px;
+	}
+
+	.ranking-meter {
+		height: 12px;
+		background: #ece5da;
+	}
+
+	.ranking-fill {
+		height: 100%;
+		background: #8b6241;
+	}
+
+	.ranking-value {
+		font-variant-numeric: tabular-nums;
+	}
+
+	@media (max-width: 760px) {
+		.meta-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.toolbar,
+		.ranking-list li {
+			display: block;
+		}
+
+		.toolbar button,
+		.ranking-meter,
+		.ranking-value {
+			margin-top: 10px;
+		}
+	}
 </style>
