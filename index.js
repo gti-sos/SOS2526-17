@@ -52,6 +52,23 @@ const INTEGRATIONS_PROXY_SOURCES = {
   "exchange-rates-eur": {
     endpoint: "https://api.exchangerate-api.com/v4/latest/EUR",
   },
+  // Externas de MRG:
+  "birth-death-growth-rates": {
+    endpoint: "https://sos2526-12.onrender.com/api/v2/birth-death-growth-rates",
+    loadInitialData: "https://sos2526-12.onrender.com/api/v2/birth-death-growth-rates/loadInitialData",
+  },
+  "global-ev-sales": {
+    endpoint: "https://sos2526-16.onrender.com/api/v1/global-ev-sales",
+    loadInitialData: "https://sos2526-16.onrender.com/api/v1/global-ev-sales/loadInitialData",
+  },
+  "spice-stats": {
+    endpoint: "https://sos2526-20-stable.onrender.com/api/v2/spice-stats",
+    loadInitialData: "https://sos2526-20-stable.onrender.com/api/v2/spice-stats/loadInitialData",
+  },
+  "daily-global-stock-market-indicators": {
+    endpoint: "https://mi-api-estable-sos.onrender.com/api/v1/daily-global-stock-market-indicators",
+    loadInitialData: "https://mi-api-estable-sos.onrender.com/api/v1/daily-global-stock-market-indicators/loadInitialData",
+  }
 };
 
 async function parseUpstreamPayload(response) {

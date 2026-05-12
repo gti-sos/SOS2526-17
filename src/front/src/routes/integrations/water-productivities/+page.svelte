@@ -1,10 +1,5 @@
 <script>
 	// @ts-nocheck
-	const links = [
-		{ label: 'Front-end del recurso', href: '/water-productivities' },
-		{ label: 'Analytics individual', href: '/analytics/water-productivities' }
-	];
-
 	function goBack() {
 		if (window.history.length > 1) {
 			window.history.back();
@@ -26,11 +21,41 @@
 	</header>
 
 	<section class="section">
-		<h2>Enlaces disponibles</h2>
-		<ul class="link-list">
-			{#each links as link}
-				<li><a href={link.href}>{link.label}</a></li>
-			{/each}
+		<h2>Enlaces de Integración - Water Productivities</h2>
+		<ul class="integration-list">
+			
+			<li>
+				<a class="integration-link" href="/integrations/water-productivities/birth-death-growth-rates">
+					<span class="integration-title">Birth death growth rates</span>
+					<span class="integration-meta">SOS externo (G12) directo</span>
+					<span class="integration-description">Análisis del crecimiento demográfico comparado con la productividad del agua.</span>
+				</a>
+			</li>
+
+			<li>
+				<a class="integration-link" href="/integrations/water-productivities/global-ev-sales">
+					<span class="integration-title">Global EV Sales</span>
+					<span class="integration-meta">SOS externo (G16) directo</span>
+					<span class="integration-description">Relación entre la eficiencia hídrica por país y la adopción de vehículos eléctricos.</span>
+				</a>
+			</li>
+
+			<li>
+				<a class="integration-link" href="/integrations/water-productivities/spice-stats">
+					<span class="integration-title">Spice Stats</span>
+					<span class="integration-meta">SOS externo (G20) estable</span>
+					<span class="integration-description">Mashup visual entre el valor económico del agua y las estadísticas de consumo de especias.</span>
+				</a>
+			</li>
+
+			<li>
+				<a class="integration-link" href="/integrations/water-productivities/daily-global-stock-market-indicators">
+					<span class="integration-title">Daily Global Stock Market Indicators</span>
+					<span class="integration-meta">API Externa Estable</span>
+					<span class="integration-description">Comparativa de indicadores bursátiles mundiales frente a la productividad hídrica regional.</span>
+				</a>
+			</li>
+
 		</ul>
 	</section>
 </main>
@@ -38,22 +63,22 @@
 <style>
 	:global(body) {
 		margin: 0;
-		background: #f3f0ea;
-		color: #25211b;
+		background: #f3f5f0;
+		color: #1f2a1e;
 		font-family: Georgia, 'Times New Roman', serif;
 	}
 
 	.page {
-		max-width: 860px;
+		max-width: 1040px;
 		margin: 0 auto;
-		padding: 32px 20px 56px;
+		padding: 32px 20px 64px;
 	}
 
 	.header,
 	.section {
-		background: #fffdf8;
-		border: 1px solid #ddd2c4;
-		padding: 24px;
+		background: #fbfcf8;
+		border: 1px solid #d5ddd1;
+		padding: 28px;
 	}
 
 	.section {
@@ -62,8 +87,9 @@
 
 	h1,
 	h2 {
-		margin: 0 0 12px;
-		font-size: 1.7rem;
+		margin: 0 0 14px;
+		font-size: 1.95rem;
+		font-weight: 600;
 	}
 
 	p {
@@ -72,30 +98,63 @@
 	}
 
 	code {
-		background: #efe6d8;
+		background: #e5eadf;
 		padding: 0.1rem 0.35rem;
-	}
-
-	.link-list {
-		margin: 0;
-		padding-left: 20px;
-	}
-
-	.link-list li + li {
-		margin-top: 10px;
-	}
-
-	a {
-		color: #6e3d1c;
 	}
 
 	.back-link {
 		margin-top: 18px;
 		padding: 9px 14px;
-		border: 1px solid #a58f79;
-		background: #fffdf8;
-		color: #25211b;
+		border: 1px solid #8ca088;
+		background: #fbfcf8;
+		color: #1f2a1e;
 		font: inherit;
 		cursor: pointer;
 	}
+
+	.integration-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.integration-list li + li {
+		margin-top: 12px;
+	}
+
+	.integration-link {
+		display: block;
+		padding: 16px 18px;
+		background: #ffffff;
+		border: 1px solid #d7dfd2;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.integration-link:hover {
+		background: #f0f4eb;
+	}
+
+	.integration-title,
+	.integration-meta,
+	.integration-description {
+		display: block;
+	}
+
+	.integration-title {
+		font-size: 1.05rem;
+		font-weight: 600;
+		margin-bottom: 4px;
+	}
+
+	.integration-meta {
+		color: #466347;
+		margin-bottom: 6px;
+	}
+
+	.integration-description {
+		color: #4a5647;
+		line-height: 1.5;
+	}
 </style>
+
