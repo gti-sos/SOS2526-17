@@ -73,7 +73,9 @@
 				<a href="">Vídeo Vídeo Mario Ramírez García (water-productivities)</a>
 			</li>
 			<li>
-				<a href="">Vídeo Pablo Gamero García (renewable-energy-consumptions)</a>
+				<a href="https://drive.google.com/file/d/1M_LdMkPUBdZYa-dRJPVlcCPEhbcW4YYd/view?usp=sharing"
+					>Vídeo Pablo Gamero García (renewable-energy-consumptions)</a
+				>
 			</li>
 			<li>
 				<a href="https://www.youtube.com/watch?v=rSqIDwWOqgs"
