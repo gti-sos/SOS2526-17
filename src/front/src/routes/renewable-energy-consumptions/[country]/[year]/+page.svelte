@@ -153,13 +153,7 @@
 </main>
 
 <style>
-    :global(body) {
-        margin: 0;
-        background: radial-gradient(circle at top, #ecfeff, #e0f2fe 50%, #f8fafc 100%);
-        color: #0f172a;
-    }
-
-    main {
+main {
         max-width: 900px;
         margin: 2.5rem auto;
         padding: 0 1.5rem 3rem;

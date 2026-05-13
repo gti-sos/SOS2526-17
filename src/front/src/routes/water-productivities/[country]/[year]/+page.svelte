@@ -82,8 +82,7 @@
 </main>
 
 <style>
-    :global(body) { background-color: #f8fafc; margin: 0; }
-    main { max-width: 800px; margin: 3rem auto; font-family: 'Segoe UI', system-ui, sans-serif; padding: 0 1rem; color: #334155; }
+main { max-width: 800px; margin: 3rem auto; font-family: 'Segoe UI', system-ui, sans-serif; padding: 0 1rem; color: #334155; }
     
     header { border-bottom: 2px solid #e2e8f0; margin-bottom: 2rem; padding-bottom: 1rem; }
     h1 { color: #1e293b; margin: 0; font-size: 1.8rem; }

@@ -147,8 +147,7 @@
 </main>
 
 <style>
-    :global(body) { background: #f4f4f9; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; }
-    .container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+.container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
     .card { background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 25px rgba(0,0,0,0.06); }
     
     header { border-bottom: 2px solid #6c5ce7; padding-bottom: 20px; margin-bottom: 30px; }

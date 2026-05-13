@@ -120,8 +120,7 @@
 </main>
 
 <style>
-    :global(body) { background: #f0f2f5; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    .container { max-width: 850px; margin: 40px auto; padding: 0 20px; }
+.container { max-width: 850px; margin: 40px auto; padding: 0 20px; }
     .card { background: white; border-radius: 12px; border: 1px solid #dcdde1; padding: 35px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
     
     header { border-bottom: 2px solid #2f3640; margin-bottom: 25px; padding-bottom: 15px; }

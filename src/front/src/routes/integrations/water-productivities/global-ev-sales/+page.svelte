@@ -143,8 +143,7 @@
 </main>
 
 <style>
-    :global(body) { background: #fdfdfd; font-family: 'Inter', sans-serif; }
-    .container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
+.container { max-width: 900px; margin: 30px auto; padding: 0 20px; }
     .card { background: white; padding: 30px; border-radius: 10px; border: 1px solid #eee; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
     
     header { border-bottom: 2px solid #00b894; margin-bottom: 25px; padding-bottom: 10px; }

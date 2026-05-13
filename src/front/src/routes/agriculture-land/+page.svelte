@@ -222,12 +222,7 @@
 </main>
 
 <style>
-	:global(body) {
-		background-color: #0f172a; /* Fondo ultra oscuro */
-		color: #f1f5f9;
-		margin: 0;
-	}
-	main {
+main {
 		max-width: 1300px;
 		margin: 2rem auto;
 		font-family: 'Inter', system-ui, sans-serif;
@@ -292,6 +287,8 @@
 	th { background: #0f172a; color: #94a3b8; padding: 15px; text-align: left; font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid #334155; }
 	td { padding: 15px; border-bottom: 1px solid #334155; font-size: 0.9rem; }
 	tr:hover { background: rgba(255, 255, 255, 0.03); }
+	tbody td:first-child { color: #000000; background: #ffffff; font-weight: 700; }
+	tbody td:first-child a { color: #000000; }
 
 	.bold { font-weight: bold; color: #f8fafc; }
 	.badge-year { background: #1e3a8a; color: #bfdbfe; padding: 2px 8px; border-radius: 4px; font-weight: bold; }

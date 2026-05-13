@@ -139,18 +139,7 @@
 </main>
 
 <style>
-    :global(body) {
-        margin: 0;
-        font-family: 'Inter', sans-serif;
-        background:
-            radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 30%),
-            radial-gradient(circle at top right, rgba(20, 184, 166, 0.14), transparent 32%),
-            linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-        min-height: 100vh;
-        color: #0f172a;
-    }
-
-    .page {
+.page {
         max-width: 1180px;
         margin: 0 auto;
         padding: 40px 20px 56px;

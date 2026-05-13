@@ -140,14 +140,7 @@
 </main>
 
 <style>
-    :global(body) { 
-        background-color: #0f172a; 
-        color: #f1f5f9; 
-        margin: 0; 
-        font-family: 'Inter', sans-serif;
-    }
-
-    main { 
+main { 
         max-width: 750px; 
         margin: 4rem auto; 
         padding: 0 1.5rem; 

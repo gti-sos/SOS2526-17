@@ -35,15 +35,17 @@
 		},
 		// 4. POKEMON (PROXY)
 		// Busca el objeto de Pokémon y cámbialo por este:
+// ... en tu array integrations ...
 {
     id: 'ext-pokemon',
-    title: 'PokeAPI (Vía Proxy)',
-    type: 'Proxy Propio / No SOS',
-    fetchUrl: '/api/v1/proxy-pokemon', // <--- AHORA SÍ PASARÁ AL BACKEND
+    title: 'PokeAPI (Directa - Prueba)',
+    type: 'Prueba sin proxy',
+    fetchUrl: 'https://pokeapi.co/api/v2/pokemon?limit=5', 
     apiUrl: 'https://pokeapi.co/api/v2/pokemon',
     columns: ['name', 'url'],
     accent: '#ff7675'
 },
+
 		// 5. PAÍSES
 		{
 			id: 'ext-paises',
@@ -197,18 +199,7 @@
 </main>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-
-	:global(body) {
-		margin: 0;
-		/* Gradiente oscuro en tonos morados profundos */
-		background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-		font-family: 'Inter', sans-serif;
-		color: #e2e8f0; 
-		min-height: 100vh;
-	}
-
-	main {
+main {
 		max-width: 1200px;
 		margin: 0 auto;
 		padding: 40px 20px;
@@ -224,23 +215,23 @@
 	h1 {
 		font-size: 2rem;
 		margin: 0;
-		color: #ffffff;
+		color: #1f2a24;
 	}
 
 	.main-header p {
-		color: #a29bfe; /* Morado claro */
+		color: #5b665f;
 		margin-top: 8px;
 	}
 
 	.group-tag {
 		font-size: 0.9rem;
-		background: #6c5ce7;
-		color: white;
+		background: #e7efe9;
+		color: #35594a;
 		padding: 4px 12px;
-		border-radius: 20px;
+		border-radius: 6px;
 		vertical-align: middle;
 		margin-left: 10px;
-		box-shadow: 0 0 12px rgba(108, 92, 231, 0.4);
+		box-shadow: none;
 	}
 
 	.nav-buttons {
@@ -250,32 +241,30 @@
 	}
 
 	.refresh-btn {
-		background: #6c5ce7;
+		background: #35594a;
 		color: white;
-		border: none;
+		border: 1px solid #35594a;
 		padding: 10px 20px;
-		border-radius: 12px;
+		border-radius: 8px;
 		cursor: pointer;
 		font-weight: 600;
-		transition: 0.3s;
-		box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+		transition: background-color 0.2s ease, border-color 0.2s ease;
+		box-shadow: none;
 	}
 
 	.refresh-btn:hover { 
-		background: #a29bfe; 
-		transform: translateY(-2px); 
-		box-shadow: 0 6px 20px rgba(108, 92, 231, 0.5);
+		background: #294639;
 	}
 
 	.home-link {
 		text-decoration: none;
-		color: #a29bfe;
+		color: #35594a;
 		font-weight: 600;
-		transition: 0.3s;
+		transition: color 0.2s ease;
 	}
 
 	.home-link:hover {
-		color: #ffffff;
+		color: #294639;
 	}
 
 	.grid-layout {
@@ -285,72 +274,73 @@
 	}
 
 	.glass-card {
-		/* Fondo semi-transparente muy oscuro para contraste */
-		background: rgba(20, 15, 40, 0.6);
-		backdrop-filter: blur(12px);
-		border-radius: 24px;
-		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: #ffffff;
+		backdrop-filter: none;
+		border-radius: 14px;
+		border: 1px solid #d6dcd3;
 		padding: 25px;
-		box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+		box-shadow: 0 10px 24px rgba(31, 42, 36, 0.08);
 		display: flex;
 		flex-direction: column;
 		border-top: 5px solid var(--accent);
-		transition: transform 0.3s ease;
+		transition: box-shadow 0.2s ease;
 	}
 
 	.glass-card:hover {
-		transform: translateY(-5px);
+		box-shadow: 0 14px 28px rgba(31, 42, 36, 0.12);
 	}
 
 	.badge {
-		font-size: 0.7rem;
+		font-size: 0.72rem;
 		font-weight: 700;
 		text-transform: uppercase;
-		color: var(--accent);
-		letter-spacing: 1px;
-		text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+		color: #35594a;
+		letter-spacing: 0.04em;
+		text-shadow: none;
 	}
 
 	h2 {
 		margin: 5px 0 15px;
 		font-size: 1.2rem;
-		color: #ffffff;
+		color: #1f2a24;
 	}
 
 	.api-path {
 		font-size: 0.75rem;
-		background: rgba(0, 0, 0, 0.4);
+		background: #f7f7f3;
 		padding: 8px;
 		border-radius: 8px;
 		margin-bottom: 20px;
-		color: #a29bfe;
+		color: #44504a;
 		word-break: break-all;
+		border: 1px solid #d6dcd3;
 	}
 
 	.table-container {
 		overflow-x: auto;
 		border-radius: 12px;
-		background: rgba(0, 0, 0, 0.25);
+		background: #ffffff;
+		border: 1px solid #d6dcd3;
 	}
 
 	table {
 		width: 100%;
 		border-collapse: collapse;
-		font-size: 0.8rem;
+		font-size: 0.84rem;
 	}
 
 	th {
-		background: rgba(255, 255, 255, 0.05);
+		background: #f7f7f3;
 		padding: 12px;
 		text-align: left;
-		color: #a29bfe;
-		border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+		color: #35594a;
+		border-bottom: 1px solid #d6dcd3;
 	}
 
 	td {
 		padding: 10px 12px;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-		color: #dcdde1;
+		border-bottom: 1px solid #e6ebe3;
+		color: #1f2a24;
 	}
 
 	tr:last-child td {
@@ -361,22 +351,25 @@
 		margin-top: auto;
 		padding-top: 20px;
 		font-size: 0.75rem;
-		color: #718093;
+		color: #5b665f;
 		text-align: right;
 	}
 
 	.error-box {
-		color: #ff7675;
-		background: rgba(214, 48, 49, 0.15);
-		border: 1px solid rgba(214, 48, 49, 0.3);
+		color: #8a3e3e;
+		background: #f8eded;
+		border: 1px solid #e4c6c6;
 		padding: 15px;
-		border-radius: 12px;
+		border-radius: 10px;
 		font-size: 0.85rem;
 	}
 
 	.loader {
 		text-align: center;
 		padding: 20px;
-		color: #a29bfe;
+		color: #5b665f;
+		background: #f7f7f3;
+		border: 1px solid #d6dcd3;
+		border-radius: 10px;
 	}
 </style>

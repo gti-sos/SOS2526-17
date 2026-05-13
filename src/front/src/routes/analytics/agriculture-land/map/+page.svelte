@@ -76,8 +76,7 @@
 </main>
 
 <style>
-    :global(body) { margin: 0; background-color: #f4f4f4; font-family: sans-serif; }
-    .header { padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; background: white; }
+.header { padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; background: white; }
     .back-link { border: 2px solid #2ecc71; color: #2ecc71; padding: 5px 15px; border-radius: 20px; text-decoration: none; font-weight: bold; }
     .map-view { height: calc(100vh - 80px); width: 100%; z-index: 1; }
 </style>

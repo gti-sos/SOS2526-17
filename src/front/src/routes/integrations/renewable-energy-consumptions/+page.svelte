@@ -1,12 +1,82 @@
 <script>
 	// @ts-nocheck
+	const BACK_URL = '/integrations';
+	const integrations = [
+		{
+			href: '/integrations/renewable-energy-consumptions/cholera-stats',
+			title: 'Cholera Stats',
+			meta: 'SOS externo directo',
+			description: 'Ranking textual de países con más casos reportados de cólera.'
+		},
+		{
+			href: '/integrations/renewable-energy-consumptions/drinking-water-services',
+			title: 'Drinking Water Services',
+			meta: 'SOS externo con proxy propio',
+			description:
+				'Comparativa visual de cobertura urbana con datos obtenidos a través del proxy propio.'
+		},
+		{
+			href: '/integrations/renewable-energy-consumptions/pandemics',
+			title: 'Pandemics',
+			meta: 'SOS externo directo',
+			description:
+				'Comparativa agregada del impacto total de varias enfermedades por país en Highcharts.'
+		},
+		{
+			href: '/integrations/renewable-energy-consumptions/wool-stats',
+			title: 'Wool Stats',
+			meta: 'SOS externo directo',
+			description:
+				'Evolución comparada de cantidad y valor comercial en una visualización de áreas.'
+		},
+		{
+			href: '/integrations/renewable-energy-consumptions/global-ev-charging-infrastructures',
+			title: 'Global EV Charging Infrastructures',
+			meta: 'SOS externo directo',
+			description: 'Relación entre puntos de carga y potencia total en un gráfico de dispersión.'
+		},
+		{
+			href: '/integrations/renewable-energy-consumptions/renewable-vs-global-ev-charging-infrastructures',
+			title: 'Mi API + Global EV Charging Infrastructures',
+			meta: 'Gráfica conjunta',
+			description:
+				'Cruce visual entre el total renovable de mi API y los indicadores de recarga EV.'
+		},
+		{
+			href: '/integrations/renewable-energy-consumptions/restcountries',
+			title: 'REST Countries',
+			meta: 'API no SOS directa',
+			description:
+				'Reparto de población de los países europeos más poblados en un gráfico circular.'
+		},
+		{
+			href: '/integrations/renewable-energy-consumptions/renewable-vs-restcountries',
+			title: 'Mi API + REST Countries',
+			meta: 'Gráfica conjunta',
+			description:
+				'Comparativa entre el total renovable de mi API y población/superficie obtenidas de REST Countries.'
+		},
+		{
+			href: '/integrations/renewable-energy-consumptions/open-meteo',
+			title: 'Open-Meteo',
+			meta: 'API no SOS directa',
+			description: 'Ficha textual con el tiempo actual en Madrid.'
+		},
+		{
+			href: '/integrations/renewable-energy-consumptions/exchange-rates',
+			title: 'Exchange Rates',
+			meta: 'API no SOS directa',
+			description: 'Evolución visual de una selección de tipos de cambio respecto al euro.'
+		}
+	];
+
 	function goBack() {
 		if (window.history.length > 1) {
 			window.history.back();
 			return;
 		}
 
-		window.location.href = '/integrations';
+		window.location.href = BACK_URL;
 	}
 </script>
 
@@ -23,74 +93,20 @@
 	<section class="section">
 		<h2>Subintegraciones disponibles</h2>
 		<ul class="integration-list">
-			<li>
-				<a class="integration-link" href="/integrations/renewable-energy-consumptions/cholera-stats">
-					<span class="integration-title">Cholera Stats</span>
-					<span class="integration-meta">SOS externo directo</span>
-					<span class="integration-description">Ranking textual de países con más casos reportados de cólera.</span>
-				</a>
-			</li>
-			<li>
-				<a class="integration-link" href="/integrations/renewable-energy-consumptions/drinking-water-services">
-					<span class="integration-title">Drinking Water Services</span>
-					<span class="integration-meta">SOS externo con proxy propio</span>
-					<span class="integration-description">Comparativa visual de cobertura urbana con datos obtenidos a través del proxy propio.</span>
-				</a>
-			</li>
-			<li>
-				<a class="integration-link" href="/integrations/renewable-energy-consumptions/pandemics">
-					<span class="integration-title">Pandemics</span>
-					<span class="integration-meta">SOS externo directo</span>
-					<span class="integration-description">Comparativa agregada del impacto total de varias enfermedades por país en Highcharts.</span>
-				</a>
-			</li>
-			<li>
-				<a class="integration-link" href="/integrations/renewable-energy-consumptions/wool-stats">
-					<span class="integration-title">Wool Stats</span>
-					<span class="integration-meta">SOS externo directo</span>
-					<span class="integration-description">Evolución comparada de cantidad y valor comercial en una visualización de áreas.</span>
-				</a>
-			</li>
-			<li>
-				<a class="integration-link" href="/integrations/renewable-energy-consumptions/global-ev-charging-infrastructures">
-					<span class="integration-title">Global EV Charging Infrastructures</span>
-					<span class="integration-meta">SOS externo directo</span>
-					<span class="integration-description">Relación entre puntos de carga y potencia total en un gráfico de dispersión.</span>
-				</a>
-			</li>
-			<li>
-				<a class="integration-link" href="/integrations/renewable-energy-consumptions/restcountries">
-					<span class="integration-title">REST Countries</span>
-					<span class="integration-meta">API no SOS directa</span>
-					<span class="integration-description">Reparto de población de los países europeos más poblados en un gráfico circular.</span>
-				</a>
-			</li>
-			<li>
-				<a class="integration-link" href="/integrations/renewable-energy-consumptions/open-meteo">
-					<span class="integration-title">Open-Meteo</span>
-					<span class="integration-meta">API no SOS directa</span>
-					<span class="integration-description">Ficha textual con el tiempo actual en Madrid.</span>
-				</a>
-			</li>
-			<li>
-				<a class="integration-link" href="/integrations/renewable-energy-consumptions/exchange-rates">
-					<span class="integration-title">Exchange Rates</span>
-					<span class="integration-meta">API no SOS directa</span>
-					<span class="integration-description">Evolución visual de una selección de tipos de cambio respecto al euro.</span>
-				</a>
-			</li>
+			{#each integrations as integration}
+				<li>
+					<a class="integration-link" href={integration.href}>
+						<span class="integration-title">{integration.title}</span>
+						<span class="integration-meta">{integration.meta}</span>
+						<span class="integration-description">{integration.description}</span>
+					</a>
+				</li>
+			{/each}
 		</ul>
 	</section>
 </main>
 
 <style>
-	:global(body) {
-		margin: 0;
-		background: #f3f5f0;
-		color: #1f2a1e;
-		font-family: Georgia, 'Times New Roman', serif;
-	}
-
 	.page {
 		max-width: 1040px;
 		margin: 0 auto;
