@@ -25,6 +25,14 @@
 		<ul class="integration-list">
 			
 			<li>
+				<a class="integration-link" href="/integrations/water-productivities/average-annual-temperatures">
+					<span class="integration-title">Average annual temperatures </span>
+					<span class="integration-meta">SOS externo (G25) direta</span>
+					<span class="integration-description">Comparativa del impacto del CO2 y la temperatura global frente a la eficiencia del agua por país.</span>
+				</a>
+			</li>
+
+			<li>
 				<a class="integration-link" href="/integrations/water-productivities/birth-death-growth-rates">
 					<span class="integration-title">Birth death growth rates</span>
 					<span class="integration-meta">SOS externo (G12) con proxy</span>
