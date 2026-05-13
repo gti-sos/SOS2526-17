@@ -16,6 +16,13 @@
 				'Comparativa visual de cobertura urbana con datos obtenidos a través del proxy propio.'
 		},
 		{
+			href: '/integrations/renewable-energy-consumptions/renewable-vs-drinking-water-services',
+			title: 'Mi API + Drinking Water Services',
+			meta: 'Gráfica conjunta SOS',
+			description:
+				'Cruce entre el total renovable de mi API y la cobertura urbana de agua usando código y año.'
+		},
+		{
 			href: '/integrations/renewable-energy-consumptions/pandemics',
 			title: 'Pandemics',
 			meta: 'SOS externo directo',
