@@ -70,7 +70,7 @@
 		<h2>Vídeos</h2>
 		<ul>
 			<li>
-				<a href="https://youtu.be/wLP9P60hSf0">Vídeo Vídeo Mario Ramírez García (water-productivities)</a>
+				<a href="https://youtu.be/wLP9P60hSf0">Vídeo  Mario Ramírez García (water-productivities)</a>
 			</li>
 			<li>
 				<a href="https://drive.google.com/file/d/1M_LdMkPUBdZYa-dRJPVlcCPEhbcW4YYd/view?usp=sharing"
